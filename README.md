@@ -32,4 +32,8 @@ parcel ./src/index.html
 1. Perspective Camera: depending on angle, the sizes are different
 2. Orthographic Camera: same size from the front view
 
+### MeshStandardMaterial
+
+MeshStandardMaterial needs Light
+
 </details>
