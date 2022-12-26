@@ -16,18 +16,28 @@ const orbit = new OrbitControls(camera, renderer.domElement)
 
 // camera.position.z = 5
 // camera.position.y = 2
-camera.position.set(0, 2, 5)
+camera.position.set(-10, 30, 30)
 orbit.update() // everytime camera position changes
 
-// add Helper Axes
+// add Helpers
 const axesHelper = new THREE.AxesHelper(5)
 scene.add(axesHelper)
+
+const gridHelper = new THREE.GridHelper(30)
+scene.add(gridHelper)
 
 // add Box
 const boxGeometry = new THREE.BoxGeometry()
 const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
 const box = new THREE.Mesh(boxGeometry, boxMaterial)
 scene.add(box)
+
+// add Plane
+const planeGeometry = new THREE.PlaneGeometry(30, 30)
+const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide })
+const plane = new THREE.Mesh(planeGeometry, planeMaterial)
+scene.add(plane)
+plane.rotation.x = -0.5 * Math.PI
 
 function animate(time) {
   box.rotation.x = time / 1000
