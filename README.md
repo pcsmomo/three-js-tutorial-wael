@@ -34,6 +34,12 @@ parcel ./src/index.html
 
 ### MeshStandardMaterial
 
-MeshStandardMaterial needs Light
+MeshStandardMaterial needs
+
+[npm dat.gui](https://www.npmjs.com/package/dat.gui) - A lightweight graphical user interface for changing variables in JavaScript
+
+```sh
+npm install dat.gui
+```
 
 </details>
