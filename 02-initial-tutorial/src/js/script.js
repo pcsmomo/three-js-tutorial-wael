@@ -114,6 +114,23 @@ scene.add(box2);
 box2.position.set(0, 15, 10);
 // box2.material.map = textureLoader.load(nebula);
 
+const plane2Geometry = new THREE.PlaneGeometry(10, 10, 10, 10);
+const plane2Material = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  wireframe: true
+});
+const plane2 = new THREE.Mesh(plane2Geometry, plane2Material);
+scene.add(plane2);
+plane2.position.set(10, 10, 15);
+
+// plane2.geometry.attributes.position.array[0] -= 10 * Math.random();
+// plane2.geometry.attributes.position.array[1] -= 10 * Math.random();
+// plane2.geometry.attributes.position.array[2] -= 10 * Math.random();
+const lastPointZ = plane2.geometry.attributes.position.array.length - 1;
+// new THREE.PlaneGeometry(10, 10, 10, 10); -> according those x/y segments (10, 10)
+console.log('segments grid', plane2.geometry.attributes.position.array.length); // 363 = (10 + 1) * (10 + 1) * 3
+// plane2.geometry.attributes.position.array[lastPointZ] -= 10 * Math.random();
+
 // GUI
 const gui = new dat.GUI();
 
@@ -165,6 +182,7 @@ function animate(time) {
   spotLight.intensity = options.intensity;
   sLightHelper.update();
 
+  // RayCaster
   rayCaster.setFromCamera(mousePosition, camera);
   const intersects = rayCaster.intersectObjects(scene.children);
   // console.log(intersects);
@@ -175,11 +193,17 @@ function animate(time) {
     }
 
     if (intersects[i].object.name === 'theBox') {
-      console.log(time / 1000);
       intersects[i].object.rotation.x = time / 1000;
       intersects[i].object.rotation.y = time / 1000;
     }
   }
+
+  // Plane2 animation
+  plane2.geometry.attributes.position.array[0] = 10 * Math.random(); // x1
+  plane2.geometry.attributes.position.array[1] = 10 * Math.random(); // y1
+  plane2.geometry.attributes.position.array[2] = 10 * Math.random(); // z1
+  plane2.geometry.attributes.position.array[lastPointZ] = 10 * Math.random(); // z121
+  plane2.geometry.attributes.position.needsUpdate = true;
 
   renderer.render(scene, camera);
 }
