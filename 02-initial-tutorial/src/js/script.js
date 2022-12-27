@@ -53,16 +53,30 @@ sphere.position.set(-10, 10, 0)
 // GUI
 const gui = new dat.GUI()
 const options = {
-  sphereColor: '#ffea00'
+  sphereColor: '#ffea00',
+  wireframe: false,
+  speed: 0.01
 }
 
 gui.addColor(options, 'sphereColor').onChange(function (e) {
   sphere.material.color.set(e)
 })
 
+gui.add(options, 'wireframe').onChange(function (e) {
+  sphere.material.wireframe = e
+})
+
+gui.add(options, 'speed', 0, 0.1)
+
+let step = 0
+
 function animate(time) {
   box.rotation.x = time / 1000
   box.rotation.y = time / 1000
+
+  step += options.speed
+  sphere.position.y = 10 * Math.abs(Math.sin(step))
+
   renderer.render(scene, camera)
 }
 
