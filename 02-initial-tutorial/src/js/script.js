@@ -2,6 +2,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import * as dat from 'dat.gui';
 
+import nebula from '../img/nebula.jpg';
+import stars from '../img/stars.jpg';
+
 const renderer = new THREE.WebGLRenderer();
 
 // renderer options
@@ -85,10 +88,35 @@ scene.add(sLightHelper);
 // scene.fog = new THREE.Fog(0xffffff, 0, 200);
 scene.fog = new THREE.FogExp2(0xffffff, 0.01);
 
-renderer.setClearColor(0xffea00);
+// renderer.setClearColor(0xffea00);
+
+// Background
+const textureLoader = new THREE.TextureLoader();
+// scene.background = textureLoader.load(stars);
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+scene.background = cubeTextureLoader.load([nebula, nebula, stars, stars, stars, stars]);
+
+const box2Geometry = new THREE.BoxGeometry(4, 4, 4);
+// const box2Material = new THREE.MeshBasicMaterial({
+//   // color: 0x00ff00,
+//   map: textureLoader.load(nebula)
+// });
+const box2MultiMaterial = [
+  new THREE.MeshBasicMaterial({ map: textureLoader.load(stars) }),
+  new THREE.MeshBasicMaterial({ map: textureLoader.load(stars) }),
+  new THREE.MeshBasicMaterial({ map: textureLoader.load(nebula) }),
+  new THREE.MeshBasicMaterial({ map: textureLoader.load(stars) }),
+  new THREE.MeshBasicMaterial({ map: textureLoader.load(nebula) }),
+  new THREE.MeshBasicMaterial({ map: textureLoader.load(stars) })
+];
+const box2 = new THREE.Mesh(box2Geometry, box2MultiMaterial);
+scene.add(box2);
+box2.position.set(0, 15, 10);
+// box2.material.map = textureLoader.load(nebula);
 
 // GUI
 const gui = new dat.GUI();
+
 const options = {
   sphereColor: '#ffea00',
   wireframe: false,
