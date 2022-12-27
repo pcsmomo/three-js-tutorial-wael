@@ -17,7 +17,7 @@ const orbit = new OrbitControls(camera, renderer.domElement)
 
 // camera.position.z = 5
 // camera.position.y = 2
-camera.position.set(-10, 20, 20)
+camera.position.set(-10, 30, 30)
 orbit.update() // everytime camera position changes
 
 // add Helpers
@@ -35,20 +35,31 @@ scene.add(box)
 
 // add Plane
 const planeGeometry = new THREE.PlaneGeometry(30, 30)
-const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide })
+const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, side: THREE.DoubleSide })
 const plane = new THREE.Mesh(planeGeometry, planeMaterial)
 scene.add(plane)
 plane.rotation.x = -0.5 * Math.PI
 
 // add Sphere
 const sphereGeometry = new THREE.SphereGeometry(4, 50, 50)
-const sphereMaterial = new THREE.MeshBasicMaterial({
+const sphereMaterial = new THREE.MeshStandardMaterial({
   color: 0x0000ff
   // wireframe: true
 })
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
 scene.add(sphere)
 sphere.position.set(-10, 10, 0)
+
+// Lights
+const ambientLight = new THREE.AmbientLight(0x33333)
+scene.add(ambientLight)
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8)
+scene.add(directionalLight)
+directionalLight.position.set(-30, 50, 0)
+
+const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5)
+scene.add(dLightHelper)
 
 // GUI
 const gui = new dat.GUI()

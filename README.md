@@ -42,4 +42,10 @@ MeshStandardMaterial needs
 npm install dat.gui
 ```
 
+### Lights
+
+- AmbientLight: e.g. Daylight
+- DirectionalLight: e.g. Sunlight
+- SpotLight
+
 </details>
