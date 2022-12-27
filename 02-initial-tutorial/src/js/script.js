@@ -114,6 +114,7 @@ scene.add(box2);
 box2.position.set(0, 15, 10);
 // box2.material.map = textureLoader.load(nebula);
 
+// Plane2 with segments
 const plane2Geometry = new THREE.PlaneGeometry(10, 10, 10, 10);
 const plane2Material = new THREE.MeshBasicMaterial({
   color: 0xffffff,
@@ -130,6 +131,29 @@ const lastPointZ = plane2.geometry.attributes.position.array.length - 1;
 // new THREE.PlaneGeometry(10, 10, 10, 10); -> according those x/y segments (10, 10)
 console.log('segments grid', plane2.geometry.attributes.position.array.length); // 363 = (10 + 1) * (10 + 1) * 3
 // plane2.geometry.attributes.position.array[lastPointZ] -= 10 * Math.random();
+
+// Sphere2 with shaders
+// const vShader = `
+//   void main() {
+//     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+//   }
+// `;
+// const fShader = `
+//   void main() {
+//     gl_FragColor = vec4(0.5, 0.5, 1.0, 1.0);
+//   }
+// `;
+
+const sphere2Geometry = new THREE.SphereGeometry(4);
+const sphere2Material = new THREE.ShaderMaterial({
+  // vertexShader: vShader,
+  vertexShader: document.getElementById('vertexShader').textContent,
+  // fragmentShader: fShader
+  fragmentShader: document.getElementById('fragmentShader').textContent
+});
+const sphere2 = new THREE.Mesh(sphere2Geometry, sphere2Material);
+scene.add(sphere2);
+sphere2.position.set(-5, 10, 10);
 
 // GUI
 const gui = new dat.GUI();
