@@ -253,3 +253,10 @@ function animate(time) {
 }
 
 renderer.setAnimationLoop(animate);
+
+// resize
+window.addEventListener('resize', function () {
+  camera.aspect = window.innerWidth / this.window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
