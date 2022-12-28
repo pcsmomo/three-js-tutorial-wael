@@ -108,28 +108,52 @@ const pointLight = new THREE.PointLight(0xffffff, 2, 300);
 scene.add(pointLight);
 
 function animate() {
+  // // Self-rotation
+  // sun.rotateY(0.004);
+  // mercury.mesh.rotateY(0.004);
+  // venus.mesh.rotateY(0.002);
+  // earth.mesh.rotateY(0.02);
+  // mars.mesh.rotateY(0.018);
+  // jupiter.mesh.rotateY(0.04);
+  // saturn.mesh.rotateY(0.038);
+  // uranus.mesh.rotateY(0.03);
+  // neptune.mesh.rotateY(0.032);
+  // pluto.mesh.rotateY(0.008);
+
+  // // Orbital revolution (Around-sun-rotation)
+  // mercury.obj.rotateY(0.04);
+  // venus.obj.rotateY(0.015);
+  // earth.obj.rotateY(0.01);
+  // mars.obj.rotateY(0.008);
+  // jupiter.obj.rotateY(0.002);
+  // saturn.obj.rotateY(0.0009);
+  // uranus.obj.rotateY(0.0004);
+  // neptune.obj.rotateY(0.0001);
+  // pluto.obj.rotateY(0.00007);
+
+  // Noah's calculation
   // Self-rotation
-  sun.rotateY(0.004);
-  mercury.mesh.rotateY(0.004);
-  venus.mesh.rotateY(0.002);
+  sun.rotateY(0.00073);
+  mercury.mesh.rotateY(0.00034);
+  venus.mesh.rotateY(0.00008);
   earth.mesh.rotateY(0.02);
-  mars.mesh.rotateY(0.018);
-  jupiter.mesh.rotateY(0.04);
-  saturn.mesh.rotateY(0.038);
-  uranus.mesh.rotateY(0.03);
-  neptune.mesh.rotateY(0.032);
-  pluto.mesh.rotateY(0.008);
+  mars.mesh.rotateY(0.01922);
+  jupiter.mesh.rotateY(0.04829);
+  saturn.mesh.rotateY(0.044);
+  uranus.mesh.rotateY(0.0275);
+  neptune.mesh.rotateY(0.02955);
+  pluto.mesh.rotateY(0.0031);
 
   // Orbital revolution (Around-sun-rotation)
-  mercury.obj.rotateY(0.04);
-  venus.obj.rotateY(0.015);
+  mercury.obj.rotateY(0.04167);
+  venus.obj.rotateY(0.01639);
   earth.obj.rotateY(0.01);
-  mars.obj.rotateY(0.008);
-  jupiter.obj.rotateY(0.002);
-  saturn.obj.rotateY(0.0009);
-  uranus.obj.rotateY(0.0004);
-  neptune.obj.rotateY(0.0001);
-  pluto.obj.rotateY(0.00007);
+  mars.obj.rotateY(0.00532);
+  jupiter.obj.rotateY(0.00084);
+  saturn.obj.rotateY(0.00034);
+  uranus.obj.rotateY(0.00012);
+  neptune.obj.rotateY(0.00006);
+  pluto.obj.rotateY(0.00004);
 
   renderer.render(scene, camera);
 }
