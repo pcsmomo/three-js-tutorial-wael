@@ -59,7 +59,10 @@ const mercuryMat = new THREE.MeshStandardMaterial({
   map: textureLoader.load(mercuryTexture)
 });
 const mercury = new THREE.Mesh(mercuryGeo, mercuryMat);
-sun.add(mercury);
+const mercuryObj = new THREE.Object3D();
+mercuryObj.add(mercury);
+scene.add(mercuryObj);
+// sun.add(mercury);
 mercury.position.x = 28;
 
 // Light
@@ -68,7 +71,8 @@ scene.add(pointLight);
 
 function animate() {
   sun.rotateY(0.004);
-  mercury.rotateY(0.004);
+  mercury.rotateY(0.004); // self-rotation
+  mercuryObj.rotateY(0.04); // orbital revolution
 
   renderer.render(scene, camera);
 }
