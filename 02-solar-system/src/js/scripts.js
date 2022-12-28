@@ -53,28 +53,23 @@ const sunMat = new THREE.MeshBasicMaterial({
 const sun = new THREE.Mesh(sunGeo, sunMat);
 scene.add(sun);
 
-// Mercury
-const mercuryGeo = new THREE.SphereGeometry(3.2, 30, 30);
-const mercuryMat = new THREE.MeshStandardMaterial({
-  map: textureLoader.load(mercuryTexture)
-});
-const mercury = new THREE.Mesh(mercuryGeo, mercuryMat);
-const mercuryObj = new THREE.Object3D();
-mercuryObj.add(mercury);
-scene.add(mercuryObj);
-// sun.add(mercury);
-mercury.position.x = 28;
+// create planets
+function createPlanet(size, texture, position) {
+  const geo = new THREE.SphereGeometry(size, 30, 30);
+  const mat = new THREE.MeshStandardMaterial({
+    map: textureLoader.load(texture)
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  const obj = new THREE.Object3D();
+  obj.add(mesh);
+  scene.add(obj);
+  mesh.position.x = position;
 
-// Saturn
-const saturnGeo = new THREE.SphereGeometry(10, 30, 30);
-const saturnMat = new THREE.MeshStandardMaterial({
-  map: textureLoader.load(saturnTexture)
-});
-const saturn = new THREE.Mesh(saturnGeo, saturnMat);
-const saturnObj = new THREE.Object3D();
-saturnObj.add(saturn);
-scene.add(saturnObj);
-saturn.position.x = 138;
+  return { mesh, obj };
+}
+
+const mercury = createPlanet(3.2, mercuryTexture, 28);
+const saturn = createPlanet(10, saturnTexture, 138);
 
 // Saturn Ring
 const saturnRingGeo = new THREE.RingGeometry(10, 20, 32);
@@ -93,10 +88,10 @@ scene.add(pointLight);
 
 function animate() {
   sun.rotateY(0.004);
-  mercury.rotateY(0.004); // self-rotation
-  mercuryObj.rotateY(0.04); // orbital revolution
-  saturn.rotateY(0.038);
-  saturnObj.rotateY(0.0009);
+  mercury.mesh.rotateY(0.004); // self-rotation
+  mercury.obj.rotateY(0.04); // orbital revolution
+  saturn.mesh.rotateY(0.038);
+  saturn.obj.rotateY(0.0009);
 
   renderer.render(scene, camera);
 }
