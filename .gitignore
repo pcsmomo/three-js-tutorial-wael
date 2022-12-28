@@ -105,3 +105,7 @@ dist
 
 # parcel cache
 .parcel-cache
+
+# image files
+02-solar-system/src/img/*.jpg
+02-solar-system/src/img/*.png
