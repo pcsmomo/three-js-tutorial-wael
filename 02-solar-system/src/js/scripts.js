@@ -82,24 +82,54 @@ function createPlanet(size, texture, position, ring) {
   return { mesh, obj };
 }
 
+// create all planets in the galaxy
 const mercury = createPlanet(3.2, mercuryTexture, 28);
+const venus = createPlanet(5.8, venusTexture, 44);
+const earth = createPlanet(6, earthTexture, 62);
+const mars = createPlanet(4, marsTexture, 78);
+const jupiter = createPlanet(12, jupiterTexture, 100);
 const saturnRing = {
   innerRadius: 10,
   outerRadius: 20,
   texture: saturnRingTexture
 };
 const saturn = createPlanet(10, saturnTexture, 138, saturnRing);
+const uranusRing = {
+  innerRadius: 7,
+  outerRadius: 12,
+  texture: uranusRingTexture
+};
+const uranus = createPlanet(7, uranusTexture, 176, uranusRing);
+const neptune = createPlanet(7, neptuneTexture, 200);
+const pluto = createPlanet(2.8, plutoTexture, 216);
 
 // Light
 const pointLight = new THREE.PointLight(0xffffff, 2, 300);
 scene.add(pointLight);
 
 function animate() {
+  // Self-rotation
   sun.rotateY(0.004);
-  mercury.mesh.rotateY(0.004); // self-rotation
-  mercury.obj.rotateY(0.04); // orbital revolution
+  mercury.mesh.rotateY(0.004);
+  venus.mesh.rotateY(0.002);
+  earth.mesh.rotateY(0.02);
+  mars.mesh.rotateY(0.018);
+  jupiter.mesh.rotateY(0.04);
   saturn.mesh.rotateY(0.038);
+  uranus.mesh.rotateY(0.03);
+  neptune.mesh.rotateY(0.032);
+  pluto.mesh.rotateY(0.008);
+
+  // Orbital revolution (Around-sun-rotation)
+  mercury.obj.rotateY(0.04);
+  venus.obj.rotateY(0.015);
+  earth.obj.rotateY(0.01);
+  mars.obj.rotateY(0.008);
+  jupiter.obj.rotateY(0.002);
   saturn.obj.rotateY(0.0009);
+  uranus.obj.rotateY(0.0004);
+  neptune.obj.rotateY(0.0001);
+  pluto.obj.rotateY(0.00007);
 
   renderer.render(scene, camera);
 }
