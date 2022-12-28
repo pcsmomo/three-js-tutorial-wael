@@ -45,7 +45,17 @@ scene.background = cubeTextureLoader.load([
 
 const textureLoader = new THREE.TextureLoader();
 
+// add Sun
+const sunGeo = new THREE.SphereGeometry(16, 30, 30);
+const sunMat = new THREE.MeshBasicMaterial({
+  map: textureLoader.load(sunTexture)
+});
+const sun = new THREE.Mesh(sunGeo, sunMat);
+scene.add(sun);
+
 function animate() {
+  sun.rotateY(0.004);
+
   renderer.render(scene, camera);
 }
 
