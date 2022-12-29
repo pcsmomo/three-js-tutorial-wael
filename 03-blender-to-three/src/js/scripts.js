@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-const doggoUrl = new URL('../assets/doggo.glb', import.meta.url);
+const doggoUrl = new URL('../assets/doggo2.glb', import.meta.url);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer();
@@ -27,11 +27,25 @@ scene.add(gridHelper);
 // asset loader
 const assetLoader = new GLTFLoader();
 
+let mixer;
 assetLoader.load(
   doggoUrl.href,
   function (gltf) {
     const model = gltf.scene;
     scene.add(model);
+    mixer = new THREE.AnimationMixer(model);
+    const clips = gltf.animations;
+
+    // play specific action
+    // const clip = THREE.AnimationClip.findByName(clips, 'HeadAction');
+    // const action = mixer.clipAction(clip);
+    // action.play();
+
+    // play all available actions
+    clips.forEach(function (clip) {
+      const action = mixer.clipAction(clip);
+      action.play();
+    });
   },
   undefined,
   function (error) {
@@ -40,7 +54,9 @@ assetLoader.load(
 );
 
 // animate
+const clock = new THREE.Clock();
 function animate() {
+  if (mixer) mixer.update(clock.getDelta());
   renderer.render(scene, camera);
 }
 
