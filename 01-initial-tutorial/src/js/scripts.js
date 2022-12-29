@@ -162,12 +162,28 @@ sphere2.position.set(-5, 10, 10);
 // GLTF
 const assetLoader = new GLTFLoader();
 
+let mixer;
 assetLoader.load(
   monkeyUrl.href,
   function (gltf) {
     const model = gltf.scene;
+    // console.log(model.children[1].material.opacity);
     scene.add(model);
     model.position.set(-12, 4, 10);
+
+    // Create an AnimationMixer, and get the list of AnimationClip instances
+    mixer = new THREE.AnimationMixer(model);
+    const clips = gltf.animations;
+
+    // Play a specific animation
+    const clip = THREE.AnimationClip.findByName(clips, 'myAnimation');
+    const action = mixer.clipAction(clip);
+    action.play();
+
+    // Play all animations
+    // clips.forEach(function (clip) {
+    //   mixer.clipAction(clip).play();
+    // });
   },
   undefined,
   function (error) {
@@ -213,8 +229,11 @@ const rayCaster = new THREE.Raycaster();
 
 const sphereId = sphere.id; // or we can use 'uuid'
 box2.name = 'theBox';
-
+const clock = new THREE.Clock();
 function animate(time) {
+  // Update the mixer on each frame
+  if (mixer) mixer.update(clock.getDelta());
+
   box.rotation.x = time / 1000;
   box.rotation.y = time / 1000;
 
