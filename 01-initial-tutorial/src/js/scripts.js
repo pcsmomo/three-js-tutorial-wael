@@ -83,7 +83,7 @@ const spotLight = new THREE.SpotLight(0xffffff);
 scene.add(spotLight);
 spotLight.position.set(-100, 100, 0);
 spotLight.castShadow = true;
-spotLight.angle = 0.2;
+spotLight.angle = 0.12;
 
 const sLightHelper = new THREE.SpotLightHelper(spotLight);
 scene.add(sLightHelper);
@@ -182,7 +182,7 @@ const options = {
   sphereColor: '#ffea00',
   wireframe: false,
   speed: 0.01,
-  angle: 0.1,
+  angle: 0.12,
   penumbra: 0.2,
   intensity: 1
 };
