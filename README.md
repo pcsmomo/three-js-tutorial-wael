@@ -42,6 +42,10 @@ MeshStandardMaterial needs
 npm install dat.gui
 ```
 
+## 3. How To Export 3D Models With Their Animation From Blender And Import Them Into Your Three.js App
+
+[three.js editor(playground)](https://threejs.org/editor)
+
 ### Lights
 
 - AmbientLight: e.g. Daylight
