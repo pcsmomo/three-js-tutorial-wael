@@ -1,19 +1,19 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-import starsTexture from '../img/stars.jpg';
-import sunTexture from '../img/sun.jpg';
-import mercuryTexture from '../img/mercury.jpg';
-import venusTexture from '../img/venus.jpg';
-import earthTexture from '../img/earth.jpg';
-import marsTexture from '../img/mars.jpg';
-import jupiterTexture from '../img/jupiter.jpg';
-import saturnTexture from '../img/saturn.jpg';
-import saturnRingTexture from '../img/saturn ring.png';
-import uranusTexture from '../img/uranus.jpg';
-import uranusRingTexture from '../img/uranus ring.png';
-import neptuneTexture from '../img/neptune.jpg';
-import plutoTexture from '../img/pluto.jpg';
+import starsTexture from '../assets/img/stars.jpg'; // global.d.ts is needed
+import sunTexture from '../assets/img/sun.jpg';
+import mercuryTexture from '../assets/img/mercury.jpg';
+import venusTexture from '../assets/img/venus.jpg';
+import earthTexture from '../assets/img/earth.jpg';
+import marsTexture from '../assets/img/mars.jpg';
+import jupiterTexture from '../assets/img/jupiter.jpg';
+import saturnTexture from '../assets/img/saturn.jpg';
+import saturnRingTexture from '../assets/img/saturn ring.png';
+import uranusTexture from '../assets/img/uranus.jpg';
+import uranusRingTexture from '../assets/img/uranus ring.png';
+import neptuneTexture from '../assets/img/neptune.jpg';
+import plutoTexture from '../assets/img/pluto.jpg';
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -54,7 +54,8 @@ const sun = new THREE.Mesh(sunGeo, sunMat);
 scene.add(sun);
 
 // create planets
-function createPlanet(size, texture, position, ring) {
+type Ring = { innerRadius: number; outerRadius: number; texture: string };
+function createPlanet(size: number, texture: string, position: number, ring?: Ring) {
   const geo = new THREE.SphereGeometry(size, 30, 30);
   const mat = new THREE.MeshStandardMaterial({
     map: textureLoader.load(texture)

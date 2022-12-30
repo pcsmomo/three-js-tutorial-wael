@@ -109,5 +109,5 @@ dist
 # image files
 02-solar-system/src/img/*.jpg
 02-solar-system/src/img/*.png
-02-z1-solar-system-ts/src/img/*.jpg
-02-z1-solar-system-ts/src/img/*.png
+02-z1-solar-system-ts/src/assets/img/*.jpg
+02-z1-solar-system-ts/src/assets/img/*.png

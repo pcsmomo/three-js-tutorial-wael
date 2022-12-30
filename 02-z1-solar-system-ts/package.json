@@ -2,15 +2,16 @@
   "name": "three-js-tutorial-wael",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "parcel ./src/index.html",
+    "start": "parcel ./index.html",
+    "build": "parcel build ./index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/three": "^0.147.0",
     "parcel": "^2.8.2"
   },
   "dependencies": {
