@@ -107,7 +107,5 @@ dist
 .parcel-cache
 
 # image files
-02-solar-system/src/img/*.jpg
-02-solar-system/src/img/*.png
-02-z1-solar-system-ts/src/assets/img/*.jpg
-02-z1-solar-system-ts/src/assets/img/*.png
+02-*/**/img/*.jpg
+02-*/**/img/*.png

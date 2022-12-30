@@ -54,7 +54,8 @@ const sun = new THREE.Mesh(sunGeo, sunMat);
 scene.add(sun);
 
 // create planets
-function createPlanet(size, texture, position, ring) {
+type Ring = { innerRadius: number; outerRadius: number; texture: string };
+function createPlanet(size: number, texture: string, position: number, ring?: Ring) {
   const geo = new THREE.SphereGeometry(size, 30, 30);
   const mat = new THREE.MeshStandardMaterial({
     map: textureLoader.load(texture)
