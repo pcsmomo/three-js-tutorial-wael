@@ -2,6 +2,15 @@
 
 Three.js Tutorial by Wael Yasmina
 
+## folder structures
+
+- 01-initial-tutorial
+  - everything
+- 02-solar-system
+- 02-solar-system-ts
+- x01-impossibox
+  - interesting cube box in TypeScript by [kandabi](https://github.com/kandabi/threejs-impossibox)
+
 # Details
 
 <details open> 
