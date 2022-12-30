@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import starsTexture from '../assets/img/stars.jpg'; // global.d.ts is needed
 import sunTexture from '../assets/img/sun.jpg';
