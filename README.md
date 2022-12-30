@@ -51,7 +51,11 @@ MeshStandardMaterial needs
 npm install dat.gui
 ```
 
-## 2. Solar system in TypeScript
+## 2-1. Solar system in TypeScript
+
+```sh
+tsc --init
+```
 
 ## 3. How To Export 3D Models With Their Animation From Blender And Import Them Into Your Three.js App
 
