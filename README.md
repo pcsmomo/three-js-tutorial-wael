@@ -7,7 +7,7 @@ Three.js Tutorial by Wael Yasmina
 - 01-initial-tutorial
   - everything
 - 02-solar-system
-- 02-solar-system-ts
+- 02-z1-solar-system-ts
 - x01-impossibox
   - interesting cube box in TypeScript by [kandabi](https://github.com/kandabi/threejs-impossibox)
 
@@ -50,6 +50,8 @@ MeshStandardMaterial needs
 ```sh
 npm install dat.gui
 ```
+
+## 2. Solar system in TypeScript
 
 ## 3. How To Export 3D Models With Their Animation From Blender And Import Them Into Your Three.js App
 
