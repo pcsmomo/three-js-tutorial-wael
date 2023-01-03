@@ -255,4 +255,9 @@ A shader is a program written in GLSL
 
 ![fragment-shader](./resources/images/fragment-shader.png)
 
+### uniform
+
+- in GLSL, sometimes, there's no way to get some information that javascript can get.
+- then we can use uniform to pass that values
+
 </details>
