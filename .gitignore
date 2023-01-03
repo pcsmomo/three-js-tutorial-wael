@@ -109,3 +109,4 @@ dist
 # image files
 02-*/**/img/*.jpg
 02-*/**/img/*.png
+04-*/**/img/*.jpg
