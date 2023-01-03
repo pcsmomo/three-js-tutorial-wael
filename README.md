@@ -69,14 +69,17 @@ tsc --init
 
 ## 4. GLSL & Shaders Tutorial - Understanding The Syntax And The Idea Behind The Vertex & Fragment Shaders
 
-- GLSL: OpenGL Shading Language
+- GLSL: OpenGL Shading Language,
 - Browser (Javascript) -> GPU (Monitor)
+- [GLSL Documentation](<https://www.khronos.org/opengl/wiki/Core_Language_(GLSL)#Types>)
 
 ### Math for game devs such as vectors, and so on
 
 https://www.youtube.com/@Acegikmo/playlists
 
-### Vectors
+### [Data types (GLSL)](<https://www.khronos.org/opengl/wiki/Data_Type_(GLSL)>)
+
+#### Vectors
 
 - vec
   - vec2
@@ -105,7 +108,7 @@ vec2 vectD = vec2(vectC);
 vec4 vectE = vec4(vectC, vectA);
 ```
 
-### Vectors2
+#### Vectors (continue)
 
 ```js
 vec4 vect = vec4(1.0, 2.0, 3.0, 4.0);
@@ -141,13 +144,77 @@ flaot d3 = vect.q;
 vec3 vectA = vec3(1.0, 2.0, 3.0);
 
 // vectB value is: vec2(1.0, 3.0);
-vec2 vectB = vectA.xz
+vec2 vectB = vectA.xz;
 
 // vectC value is: vec3(1.0, 1.0, 1.0);
-vec3 vectC = vectA.rrr
+vec3 vectC = vectA.rrr;
 
 // vectD value is: vec2(3.0, 1.0);
-vec2 vectD = vectA.br
+vec2 vectD = vectA.br;
+```
+
+#### Matrices
+
+- mat2: {x1, x2, y1, y2}
+- mat3: {}
+- mat4: {}
+
+```js
+// matA value is: mat2(1.0, 1.0, 0.0, 0.0)
+mat2 matA = mat2(1, 1, false, false);
+// 7.0  0.0  1.0
+// 4.0  2.0  3.0
+// 5.0  5.0  7.0
+mat3 matB = mat3(7.0, 4.0, 5.0, 0.0, 2.0, 5.0, 1.0, 3.0, 7.0);
+
+// vectC1 value is: vec3(7.0, 4.0, 5.0)
+vec3 vectC1 = matB[0];
+
+// Replaces 7.0 by 100.0
+matB[2][2] = 100.0;
+
+// f value is: 4.0
+// Same as matB[0][1]
+flaot f = matB[0]y;
+```
+
+#### Samplers
+
+- sampler2D
+- samplerCube
+
+#### Structures
+
+```c
+struct myType {
+  int c1;
+  vect3 c2;
+}
+
+myType a;
+```
+
+#### Functions
+
+```c
+float funcA(int a, vec2 b) {
+  // Stuff to do
+  return 1.0;
+}
+void funcB(vec3 vect) {
+  // Stuff todo
+  // No return
+}
+```
+
+##### Prototype
+
+```c
+vec2 funcE(float x, float y);
+vect2 vect = funcE(1.0, 1.0);
+vec2 funcE(float x, float y) {
+  return vec2(1.0, 2.0);
+}
 ```
 
 </details>
