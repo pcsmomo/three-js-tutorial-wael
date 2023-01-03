@@ -217,4 +217,42 @@ vec2 funcE(float x, float y) {
 }
 ```
 
+### [Qualifiers](<https://www.khronos.org/opengl/wiki/Type_Qualifier_(GLSL)>)
+
+#### Storage Qualifiers
+
+- const: `const type variable_identifier = value;`
+- attribute: `attribute type variable_identifier;`
+- uniform: `uniform type variable_identifier;`
+- varying: `varying type variable_identifier;`
+
+#### Precision Qualifiers
+
+- lowp
+- mediump
+- highp
+
+```c
+// precision_qualifier type variable_identifier;
+mediump flaot f;
+
+// precision precision_qualifier type;
+precision highp vec2
+```
+
+### Shaders
+
+A shader is a program written in GLSL
+
+- Vertex shader
+- Fragment shader
+
+#### Vertex Shader
+
+![vertex-shader](./resources/images/vertex-shader.png)
+
+#### Fragment Shader
+
+![fragment-shader](./resources/images/fragment-shader.png)
+
 </details>
