@@ -26,13 +26,18 @@
       uniform float u_time;
       uniform vec2 u_resolution;
       uniform vec2 u_mouse;
+      uniform sampler2D image;
       void main() {
         // gl_FragColor = vec4(0.2, sin(u_time), 1.0, 1.0);
 
-        //vec2 st = gl_FragCoord.xy / u_resolution;
-        //gl_FragColor = vec4(0.0, st.x, st.y, 1.0);
+        vec2 st = gl_FragCoord.xy / u_resolution;
+        // gl_FragColor = vec4(0.0, st.x, st.y, 1.0);
 
-        gl_FragColor = vec4(0.0, u_mouse.x, u_mouse.y, 1.0);
+        vec4 texture = texture2D(image, st);
+        // gl_FragColor = vec4(texture.r, texture.g, texture.b, 1.0);
+
+        float effect = abs(sin(texture.x + u_time));
+        gl_FragColor = vec4(vec3(effect), 1.0);
       }
     </script>
     <script type="module" src="/src/ts/scripts.ts"></script>

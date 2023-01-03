@@ -24,7 +24,8 @@ const uniforms = {
     type: 'v2',
     value: new THREE.Vector2(window.innerWidth, window.innerHeight).multiplyScalar(window.devicePixelRatio)
   },
-  u_mouse: { type: 'v2', value: new THREE.Vector2(0.0, 0.0) }
+  u_mouse: { type: 'v2', value: new THREE.Vector2(0.0, 0.0) },
+  image: { type: 't', value: new THREE.TextureLoader().load(nebula) }
 };
 
 window.addEventListener('mousemove', function (e) {
