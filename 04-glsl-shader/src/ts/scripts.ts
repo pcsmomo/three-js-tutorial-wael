@@ -18,18 +18,24 @@ const orbit = new OrbitControls(camera, renderer.domElement);
 camera.position.set(0, 0, 12);
 orbit.update();
 
-// add Sun
+const uniforms = {
+  u_time: { type: 'f', value: 0.0 }
+};
+
 const geo = new THREE.PlaneGeometry(10, 10, 30, 30);
 const mat = new THREE.ShaderMaterial({
   vertexShader: document.getElementById('vertexShader')?.textContent || '',
   fragmentShader: document.getElementById('fragmentShader')?.textContent || '',
-  wireframe: true
+  wireframe: true,
+  uniforms
 });
 
 const mesh = new THREE.Mesh(geo, mat);
 scene.add(mesh);
 
+const clock = new THREE.Clock();
 function animate() {
+  uniforms.u_time.value = clock.getElapsedTime();
   renderer.render(scene, camera);
 }
 
