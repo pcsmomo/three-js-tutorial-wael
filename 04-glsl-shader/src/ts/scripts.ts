@@ -23,8 +23,13 @@ const uniforms = {
   u_resolution: {
     type: 'v2',
     value: new THREE.Vector2(window.innerWidth, window.innerHeight).multiplyScalar(window.devicePixelRatio)
-  }
+  },
+  u_mouse: { type: 'v2', value: new THREE.Vector2(0.0, 0.0) }
 };
+
+window.addEventListener('mousemove', function (e) {
+  uniforms.u_mouse.value.set(e.screenX / window.innerWidth, 1 - e.screenY / window.innerHeight);
+});
 
 const geo = new THREE.PlaneGeometry(10, 10, 30, 30);
 const mat = new THREE.ShaderMaterial({
