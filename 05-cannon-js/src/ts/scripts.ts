@@ -49,6 +49,8 @@ const world = new CANNON.World({
   gravity: new CANNON.Vec3(0, -9.81, 0) // m/s²
 });
 
+const groundPhysMat = new CANNON.Material();
+
 const groundBody = new CANNON.Body({
   // shape: new CANNON.Plane(),
   // mass: 10,
@@ -58,24 +60,42 @@ const groundBody = new CANNON.Body({
 world.addBody(groundBody);
 groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 
+const boxPhysMat = new CANNON.Material();
+
 const boxBody = new CANNON.Body({
   mass: 1,
   shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)), // same size as boxGeo
-  position: new CANNON.Vec3(1, 20, 0)
+  position: new CANNON.Vec3(1, 20, 0),
+  material: boxPhysMat
 });
 world.addBody(boxBody);
 
-boxBody.angularVelocity.set(0, 5, 0);
-boxBody.angularDamping = 0.2;
+boxBody.angularVelocity.set(0, 10, 0);
+boxBody.angularDamping = 0.5;
+
+const groundBoxContactMat = new CANNON.ContactMaterial(groundPhysMat, boxPhysMat, {
+  friction: 0.04
+});
+
+world.addContactMaterial(groundBoxContactMat);
+
+const spherePhysMat = new CANNON.Material();
 
 const sphereBody = new CANNON.Body({
   mass: 1,
   shape: new CANNON.Sphere(2), // same radius as sphereGeo
-  position: new CANNON.Vec3(0, 15, 0)
+  position: new CANNON.Vec3(0, 15, 0),
+  material: spherePhysMat
 });
 world.addBody(sphereBody);
 
 sphereBody.linearDamping = 0.312;
+
+const groundSphereContactMat = new CANNON.ContactMaterial(groundPhysMat, spherePhysMat, {
+  restitution: 0.9 // for Coefficient of restitution
+});
+
+world.addContactMaterial(groundSphereContactMat);
 
 const timeStep = 1 / 60;
 
