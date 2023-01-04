@@ -35,23 +35,36 @@ orbit.update();
 // const sphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
 // scene.add(sphereMesh);
 
-// const groundGeo = new THREE.PlaneGeometry(30, 30);
-// const groundMat = new THREE.MeshBasicMaterial({
-//   color: 0xffffff,
-//   side: THREE.DoubleSide,
-//   wireframe: true
-// });
-// const groundMesh = new THREE.Mesh(groundGeo, groundMat);
-// scene.add(groundMesh);
+const groundGeo = new THREE.PlaneGeometry(30, 30);
+const groundMat = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  side: THREE.DoubleSide,
+  wireframe: true
+});
+const groundMesh = new THREE.Mesh(groundGeo, groundMat);
+scene.add(groundMesh);
 
+// World
 const world = new CANNON.World({
   gravity: new CANNON.Vec3(0, -9.81, 0) // m/s²
 });
+
+const groundBody = new CANNON.Body({
+  shape: new CANNON.Plane(),
+  // mass: 10,
+  type: CANNON.Body.STATIC
+});
+world.addBody(groundBody);
+groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 
 const timeStep = 1 / 60;
 
 function animate() {
   world.step(timeStep);
+
+  groundMesh.position.copy(groundBody.position as any); // those types aren't exactly same
+  groundMesh.quaternion.copy(groundBody.quaternion as any);
+
   renderer.render(scene, camera);
 }
 
