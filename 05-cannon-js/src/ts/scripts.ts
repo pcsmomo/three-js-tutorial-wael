@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import * as CANNON from 'cannon-es';
+
 const renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -42,7 +44,14 @@ orbit.update();
 // const groundMesh = new THREE.Mesh(groundGeo, groundMat);
 // scene.add(groundMesh);
 
+const world = new CANNON.World({
+  gravity: new CANNON.Vec3(0, -9.81, 0) // m/s²
+});
+
+const timeStep = 1 / 60;
+
 function animate() {
+  world.step(timeStep);
   renderer.render(scene, camera);
 }
 
