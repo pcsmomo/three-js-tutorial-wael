@@ -50,8 +50,9 @@ const world = new CANNON.World({
 });
 
 const groundBody = new CANNON.Body({
-  shape: new CANNON.Plane(),
+  // shape: new CANNON.Plane(),
   // mass: 10,
+  shape: new CANNON.Box(new CANNON.Vec3(15, 15, 0.1)), // same size as groundGeo or half..?
   type: CANNON.Body.STATIC
 });
 world.addBody(groundBody);
