@@ -65,6 +65,9 @@ const boxBody = new CANNON.Body({
 });
 world.addBody(boxBody);
 
+boxBody.angularVelocity.set(0, 5, 0);
+boxBody.angularDamping = 0.2;
+
 const sphereBody = new CANNON.Body({
   mass: 1,
   shape: new CANNON.Sphere(2), // same radius as sphereGeo
