@@ -72,6 +72,8 @@ const sphereBody = new CANNON.Body({
 });
 world.addBody(sphereBody);
 
+sphereBody.linearDamping = 0.312;
+
 const timeStep = 1 / 60;
 
 function animate() {
