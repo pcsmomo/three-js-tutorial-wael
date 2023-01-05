@@ -59,6 +59,10 @@ window.addEventListener('mousemove', function (e) {
   raycaster.ray.intersectPlane(plane, intersectionPoint);
 });
 
+type SphereMesh = THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial>;
+const meshes: SphereMesh[] = [];
+const bodies: CANNON.Body[] = [];
+
 window.addEventListener('click', function () {
   const sphereGeo = new THREE.SphereGeometry(0.125, 30, 30);
   const sphereMat = new THREE.MeshStandardMaterial({
@@ -69,6 +73,16 @@ window.addEventListener('click', function () {
   const sphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
   scene.add(sphereMesh);
   sphereMesh.position.copy(intersectionPoint);
+
+  const sphereBody = new CANNON.Body({
+    mass: 0.3,
+    shape: new CANNON.Sphere(0.125),
+    position: new CANNON.Vec3(intersectionPoint.x, intersectionPoint.y, intersectionPoint.z)
+  });
+  world.addBody(sphereBody);
+
+  meshes.push(sphereMesh);
+  bodies.push(sphereBody);
 });
 
 const timestep = 1 / 60;
@@ -78,6 +92,11 @@ function animate() {
 
   planeMesh.position.copy(planeBody.position as any);
   planeMesh.quaternion.copy(planeBody.quaternion as any);
+
+  meshes.forEach((mesh, i) => {
+    mesh.position.copy(bodies[i].position as any);
+    mesh.quaternion.copy(bodies[i].quaternion as any);
+  });
 
   renderer.render(scene, camera);
 }
