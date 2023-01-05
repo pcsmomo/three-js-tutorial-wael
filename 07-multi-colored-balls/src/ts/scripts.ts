@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import * as CANNON from 'cannon-es';
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -13,10 +14,10 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 
 const orbit = new OrbitControls(camera, renderer.domElement);
 
-camera.position.set(0, 5, 5);
+camera.position.set(0, 4, 10);
 orbit.update();
 
-const ambientLight = new THREE.AmbientLight(0x33333);
+const ambientLight = new THREE.AmbientLight(0x333333);
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -25,6 +26,23 @@ directionalLight.position.set(0, 50, 0);
 
 // const axesHelper = new THREE.AxesHelper(20);
 // scene.add(axesHelper);
+
+const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -9.81, 0) });
+
+const planeGeo = new THREE.PlaneGeometry(10, 10);
+const planeMat = new THREE.MeshStandardMaterial({
+  color: 0xffffff,
+  side: THREE.DoubleSide
+});
+const planeMesh = new THREE.Mesh(planeGeo, planeMat);
+scene.add(planeMesh);
+
+const planeBody = new CANNON.Body({
+  type: CANNON.Body.STATIC,
+  shape: new CANNON.Box(new CANNON.Vec3(5, 5, 0.001))
+});
+planeBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+world.addBody(planeBody);
 
 const mouse = new THREE.Vector2();
 const intersectionPoint = new THREE.Vector3();
@@ -53,7 +71,14 @@ window.addEventListener('click', function () {
   sphereMesh.position.copy(intersectionPoint);
 });
 
+const timestep = 1 / 60;
+
 function animate() {
+  world.step(timestep);
+
+  planeMesh.position.copy(planeBody.position as any);
+  planeMesh.quaternion.copy(planeBody.quaternion as any);
+
   renderer.render(scene, camera);
 }
 
