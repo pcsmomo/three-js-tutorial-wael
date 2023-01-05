@@ -28,6 +28,9 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 scene.add(directionalLight);
 directionalLight.position.set(0, 50, 0);
 directionalLight.castShadow = true;
+console.log(directionalLight.shadow.mapSize);
+directionalLight.shadow.mapSize.width = 1024; // make the shadow more clear
+directionalLight.shadow.mapSize.height = 1024;
 
 // const axesHelper = new THREE.AxesHelper(20);
 // scene.add(axesHelper);
