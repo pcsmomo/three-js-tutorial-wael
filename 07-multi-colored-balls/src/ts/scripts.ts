@@ -37,9 +37,11 @@ const planeMat = new THREE.MeshStandardMaterial({
 const planeMesh = new THREE.Mesh(planeGeo, planeMat);
 scene.add(planeMesh);
 
+const planePhysMat = new CANNON.Material();
 const planeBody = new CANNON.Body({
   type: CANNON.Body.STATIC,
-  shape: new CANNON.Box(new CANNON.Vec3(5, 5, 0.001))
+  shape: new CANNON.Box(new CANNON.Vec3(5, 5, 0.001)),
+  material: planePhysMat
 });
 planeBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 world.addBody(planeBody);
@@ -66,7 +68,7 @@ const bodies: CANNON.Body[] = [];
 window.addEventListener('click', function () {
   const sphereGeo = new THREE.SphereGeometry(0.125, 30, 30);
   const sphereMat = new THREE.MeshStandardMaterial({
-    color: 0xffea00,
+    color: Math.random() * 0xffffff,
     metalness: 0,
     roughness: 0
   });
@@ -74,12 +76,18 @@ window.addEventListener('click', function () {
   scene.add(sphereMesh);
   sphereMesh.position.copy(intersectionPoint);
 
+  const spherePhysMat = new CANNON.Material();
   const sphereBody = new CANNON.Body({
     mass: 0.3,
     shape: new CANNON.Sphere(0.125),
-    position: new CANNON.Vec3(intersectionPoint.x, intersectionPoint.y, intersectionPoint.z)
+    position: new CANNON.Vec3(intersectionPoint.x, intersectionPoint.y, intersectionPoint.z),
+    material: spherePhysMat
   });
   world.addBody(sphereBody);
+
+  const planeSphereContactMat = new CANNON.ContactMaterial(planePhysMat, spherePhysMat, { restitution: 0.4 });
+
+  world.addContactMaterial(planeSphereContactMat);
 
   meshes.push(sphereMesh);
   bodies.push(sphereBody);
