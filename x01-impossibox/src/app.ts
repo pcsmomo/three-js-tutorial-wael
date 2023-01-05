@@ -34,7 +34,7 @@ export class App {
       this.camera.position.z = 20;
 
       this.renderer = new WebGLRenderer({
-         antialias: true,
+         antialias: true, // a lot smoother on the edges
          stencil: true,
          alpha: true,
       });

@@ -2,7 +2,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import * as CANNON from 'cannon-es';
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({
+  antialias: true // a lot smoother on the edges
+});
+
+renderer.shadowMap.enabled = true;
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -23,6 +27,7 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 scene.add(directionalLight);
 directionalLight.position.set(0, 50, 0);
+directionalLight.castShadow = true;
 
 // const axesHelper = new THREE.AxesHelper(20);
 // scene.add(axesHelper);
@@ -36,6 +41,7 @@ const planeMat = new THREE.MeshStandardMaterial({
 });
 const planeMesh = new THREE.Mesh(planeGeo, planeMat);
 scene.add(planeMesh);
+planeMesh.receiveShadow = true;
 
 const planePhysMat = new CANNON.Material();
 const planeBody = new CANNON.Body({
@@ -74,7 +80,8 @@ window.addEventListener('click', function () {
   });
   const sphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
   scene.add(sphereMesh);
-  sphereMesh.position.copy(intersectionPoint);
+  // sphereMesh.position.copy(intersectionPoint);
+  sphereMesh.castShadow = true;
 
   const spherePhysMat = new CANNON.Material();
   const sphereBody = new CANNON.Body({
