@@ -44,7 +44,7 @@ scene.add(highlightMesh);
 // mouse and raycaster
 const mousePosition = new THREE.Vector2();
 const raycaster = new THREE.Raycaster();
-let intersects;
+let intersects: THREE.Intersection<THREE.Object3D<THREE.Event>>[] = [];
 
 window.addEventListener('mousemove', function (e) {
   mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -57,6 +57,26 @@ window.addEventListener('mousemove', function (e) {
       highlightMesh.position.set(highlightPos.x, 0, highlightPos.z);
     }
   });
+});
+
+// sphereMesh that will be generated on mouse click
+const sphereMesh = new THREE.Mesh(
+  new THREE.SphereGeometry(0.4, 4, 2),
+  new THREE.MeshBasicMaterial({
+    wireframe: true,
+    color: 0xffea00
+  })
+);
+
+window.addEventListener('mousedown', function (e) {
+  intersects.forEach(function (intersect) {
+    if (intersect.object.name === 'ground') {
+      const sphereClone = sphereMesh.clone();
+      sphereClone.position.copy(highlightMesh.position);
+      scene.add(sphereClone);
+    }
+  });
+  // console.log(scene.children.length);
 });
 
 function animate() {
