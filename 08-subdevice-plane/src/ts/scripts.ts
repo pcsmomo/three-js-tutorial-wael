@@ -68,15 +68,24 @@ const sphereMesh = new THREE.Mesh(
   })
 );
 
+const objects: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>[] = [];
+
 window.addEventListener('mousedown', function (e) {
+  const objectExists = objects.find(function (object) {
+    return object.position.x === highlightMesh.position.x && object.position.z === highlightMesh.position.z;
+  });
+  if (objectExists) return;
+
   intersects.forEach(function (intersect) {
     if (intersect.object.name === 'ground') {
       const sphereClone = sphereMesh.clone();
-      sphereClone.position.copy(highlightMesh.position);
+      // sphereClone.position.copy(highlightMesh.position);
+      sphereClone.position.set(highlightMesh.position.x, highlightMesh.position.y + 0.4, highlightMesh.position.z);
       scene.add(sphereClone);
+      objects.push(sphereClone);
     }
   });
-  // console.log(scene.children.length);
+  console.log(scene.children.length);
 });
 
 function animate() {
