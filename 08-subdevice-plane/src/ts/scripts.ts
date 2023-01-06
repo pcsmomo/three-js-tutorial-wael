@@ -16,6 +16,29 @@ const orbit = new OrbitControls(camera, renderer.domElement);
 camera.position.set(10, 15, -22);
 orbit.update();
 
+const planeMesh = new THREE.Mesh(
+  new THREE.PlaneGeometry(20, 20),
+  new THREE.MeshBasicMaterial({
+    side: THREE.DoubleSide,
+    visible: false
+  })
+);
+planeMesh.rotateX(-Math.PI / 2);
+scene.add(planeMesh);
+
+const grid = new THREE.GridHelper(20, 20);
+scene.add(grid);
+
+const highlightMesh = new THREE.Mesh(
+  new THREE.PlaneGeometry(1, 1),
+  new THREE.MeshBasicMaterial({
+    side: THREE.DoubleSide
+  })
+);
+highlightMesh.rotateX(-Math.PI / 2);
+highlightMesh.position.set(0.5, 0, 0.5);
+scene.add(highlightMesh);
+
 function animate() {
   renderer.render(scene, camera);
 }
