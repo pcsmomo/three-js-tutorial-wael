@@ -16,6 +16,7 @@ const orbit = new OrbitControls(camera, renderer.domElement);
 camera.position.set(10, 15, -22);
 orbit.update();
 
+// basic meshes
 const planeMesh = new THREE.Mesh(
   new THREE.PlaneGeometry(20, 20),
   new THREE.MeshBasicMaterial({
@@ -25,6 +26,7 @@ const planeMesh = new THREE.Mesh(
 );
 planeMesh.rotateX(-Math.PI / 2);
 scene.add(planeMesh);
+planeMesh.name = 'ground';
 
 const grid = new THREE.GridHelper(20, 20);
 scene.add(grid);
@@ -38,6 +40,24 @@ const highlightMesh = new THREE.Mesh(
 highlightMesh.rotateX(-Math.PI / 2);
 highlightMesh.position.set(0.5, 0, 0.5);
 scene.add(highlightMesh);
+
+// mouse and raycaster
+const mousePosition = new THREE.Vector2();
+const raycaster = new THREE.Raycaster();
+let intersects;
+
+window.addEventListener('mousemove', function (e) {
+  mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mousePosition, camera);
+  intersects = raycaster.intersectObjects(scene.children);
+  intersects.forEach(function (intersect) {
+    if (intersect.object.name === 'ground') {
+      const highlightPos = new THREE.Vector3().copy(intersect.point).floor().addScalar(0.5);
+      highlightMesh.position.set(highlightPos.x, 0, highlightPos.z);
+    }
+  });
+});
 
 function animate() {
   renderer.render(scene, camera);
