@@ -34,7 +34,8 @@ scene.add(grid);
 const highlightMesh = new THREE.Mesh(
   new THREE.PlaneGeometry(1, 1),
   new THREE.MeshBasicMaterial({
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
+    transparent: true
   })
 );
 highlightMesh.rotateX(-Math.PI / 2);
@@ -95,7 +96,8 @@ window.addEventListener('mousedown', function () {
   // console.log(scene.children.length);
 });
 
-function animate() {
+function animate(time: number) {
+  highlightMesh.material.opacity = 1 + Math.sin(time / 120);
   renderer.render(scene, camera);
 }
 
