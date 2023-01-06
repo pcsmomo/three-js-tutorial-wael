@@ -91,6 +91,8 @@ window.addEventListener('mousedown', function () {
       sphereClone.position.set(highlightMesh.position.x, highlightMesh.position.y + 0.4, highlightMesh.position.z);
       scene.add(sphereClone);
       objects.push(sphereClone);
+
+      highlightMesh.material.color.setHex(0xff0000);
     }
   });
   // console.log(scene.children.length);
@@ -98,6 +100,14 @@ window.addEventListener('mousedown', function () {
 
 function animate(time: number) {
   highlightMesh.material.opacity = 1 + Math.sin(time / 120);
+
+  // rotate all objects
+  objects.forEach(function (object) {
+    object.rotation.x = time / 1000;
+    object.rotation.z = time / 1000;
+    object.rotation.y = 0.5 + 0.5 * Math.abs(Math.sin(time / 1000));
+  });
+
   renderer.render(scene, camera);
 }
 
