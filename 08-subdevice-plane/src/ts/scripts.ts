@@ -55,6 +55,10 @@ window.addEventListener('mousemove', function (e) {
     if (intersect.object.name === 'ground') {
       const highlightPos = new THREE.Vector3().copy(intersect.point).floor().addScalar(0.5);
       highlightMesh.position.set(highlightPos.x, 0, highlightPos.z);
+
+      // change color of highlightMesh if object exists
+      const objectExists = doesObjectExists();
+      highlightMesh.material.color.setHex(objectExists ? 0xff0000 : 0xffffff);
     }
   });
 });
@@ -69,11 +73,14 @@ const sphereMesh = new THREE.Mesh(
 );
 
 const objects: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>[] = [];
-
-window.addEventListener('mousedown', function (e) {
-  const objectExists = objects.find(function (object) {
+function doesObjectExists() {
+  return objects.find(function (object) {
     return object.position.x === highlightMesh.position.x && object.position.z === highlightMesh.position.z;
   });
+}
+
+window.addEventListener('mousedown', function () {
+  const objectExists = doesObjectExists();
   if (objectExists) return;
 
   intersects.forEach(function (intersect) {
@@ -85,7 +92,7 @@ window.addEventListener('mousedown', function (e) {
       objects.push(sphereClone);
     }
   });
-  console.log(scene.children.length);
+  // console.log(scene.children.length);
 });
 
 function animate() {
