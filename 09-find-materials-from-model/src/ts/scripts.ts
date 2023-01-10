@@ -40,6 +40,17 @@ directionalLight.position.set(10, 11, 7);
 // GUI
 const gui = new dat.GUI();
 
+const options = {
+  Main: 0x2f3130,
+  'Main light': 0x7c7c7c,
+  'Main dark': 0x0a0a0a,
+  Hooves: 0x0f0b0d,
+  Hair: 0x0a0a0a,
+  Muzzle: 0x0b0804,
+  'Eye dark': 0x020202,
+  'Eye white': 0xbebebe
+};
+
 // GLTF
 const assetLoader = new GLTFLoader();
 
@@ -60,11 +71,36 @@ assetLoader.load(
     // console.log(model.children[0].children[0].children[1]);
 
     // efficient way to find materials
-    console.log(model.getObjectByName('Donkey')); // => console.log(model.children[0].children[0]);
+    // console.log(model.getObjectByName('Donkey')); // => console.log(model.children[0].children[0]);
     console.log(model.getObjectByName('Cube_1')); // => console.log(model.children[0].children[0].children[1]);
     // const cube1 = model.getObjectByName('Cube_1') as THREE.SkinnedMesh;
     // cube1.material.color.setHex(0x00ff00);
-    model.getObjectByName('Cube_1')?.material.color.setHex(0x00ff00);
+    // model.getObjectByName('Cube_1')?.material.color.setHex(0x00ff00);
+
+    gui.addColor(options, 'Main').onChange(function (value) {
+      model.getObjectByName('Cube')?.material.color.setHex(value);
+    });
+    gui.addColor(options, 'Main light').onChange(function (value) {
+      model.getObjectByName('Cube_1')?.material.color.setHex(value);
+    });
+    gui.addColor(options, 'Main dark').onChange(function (value) {
+      model.getObjectByName('Cube_2')?.material.color.setHex(value);
+    });
+    gui.addColor(options, 'Hooves').onChange(function (value) {
+      model.getObjectByName('Cube_3')?.material.color.setHex(value);
+    });
+    gui.addColor(options, 'Hair').onChange(function (value) {
+      model.getObjectByName('Cube_4')?.material.color.setHex(value);
+    });
+    gui.addColor(options, 'Muzzle').onChange(function (value) {
+      model.getObjectByName('Cube_5')?.material.color.setHex(value);
+    });
+    gui.addColor(options, 'Eye dark').onChange(function (value) {
+      model.getObjectByName('Cube_6')?.material.color.setHex(value);
+    });
+    gui.addColor(options, 'Eye white').onChange(function (value) {
+      model.getObjectByName('Cube_7')?.material.color.setHex(value);
+    });
   },
   undefined,
   function (error) {
