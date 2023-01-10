@@ -278,4 +278,11 @@ Credits
 - Model
   - https://quaternius.com/ (many free 3d models)
 
+#### 3 ways to inspect a model
+
+1. `console.log()`
+2. using graphic design tool such as `blender` or `gestaltor`
+3. (recommend) using three.js official online editor, `https://threejs.org/editor/`
+   - add `DirectionalLight`
+
 </details>

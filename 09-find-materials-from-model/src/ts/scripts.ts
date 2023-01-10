@@ -53,6 +53,18 @@ assetLoader.load(
   function (gltf) {
     const model = gltf.scene;
     scene.add(model);
+
+    // inefficient way to find materials
+    // console.log(model);
+    // console.log(model.children[0].children[0]);
+    // console.log(model.children[0].children[0].children[1]);
+
+    // efficient way to find materials
+    console.log(model.getObjectByName('Donkey')); // => console.log(model.children[0].children[0]);
+    console.log(model.getObjectByName('Cube_1')); // => console.log(model.children[0].children[0].children[1]);
+    // const cube1 = model.getObjectByName('Cube_1') as THREE.SkinnedMesh;
+    // cube1.material.color.setHex(0x00ff00);
+    model.getObjectByName('Cube_1')?.material.color.setHex(0x00ff00);
   },
   undefined,
   function (error) {
