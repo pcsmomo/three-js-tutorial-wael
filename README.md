@@ -269,4 +269,13 @@ A shader is a program written in GLSL
 npm install cannon-es
 ```
 
+### 9. How To Find The Materials Of A Loaded Model - Three.js Tutorial
+
+Credits
+
+- Wireframe human model
+  - https://openclipart.org/detail/260560/low-poly-human-male-wireframe#google_vignette
+- Model
+  - https://quaternius.com/ (many free 3d models)
+
 </details>

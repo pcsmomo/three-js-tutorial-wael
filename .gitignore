@@ -110,3 +110,6 @@ dist
 02-*/**/img/*.jpg
 02-*/**/img/*.png
 04-*/**/img/*.jpg
+
+# gltf files
+Donkey.gltf
