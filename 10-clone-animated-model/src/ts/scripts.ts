@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 
 const modelUrl = new URL('../assets/Stag.gltf', import.meta.url);
 
@@ -104,7 +105,7 @@ window.addEventListener('mousemove', function (e) {
   });
 });
 
-const objects: THREE.Group[] = [];
+const objects: THREE.Object3D<THREE.Event>[] = [];
 function doesObjectExists() {
   return objects.find(function (object) {
     return object.position.x === highlightMesh.position.x && object.position.z === highlightMesh.position.z;
@@ -117,9 +118,9 @@ window.addEventListener('mousedown', function () {
 
   intersects.forEach(function (intersect) {
     if (intersect.object.name === 'ground') {
-      const stagClone = stag.clone();
-      // stagClone.position.copy(highlightMesh.position);
-      stagClone.position.set(highlightMesh.position.x, highlightMesh.position.y + 0.4, highlightMesh.position.z);
+      const stagClone = SkeletonUtils.clone(stag);
+      stagClone.position.copy(highlightMesh.position);
+      // stagClone.position.set(highlightMesh.position.x, highlightMesh.position.y + 0.4, highlightMesh.position.z);
       scene.add(stagClone);
       objects.push(stagClone);
       highlightMesh.material.color.setHex(0xff0000);
@@ -131,11 +132,11 @@ window.addEventListener('mousedown', function () {
 const clock = new THREE.Clock();
 function animate(time: number) {
   highlightMesh.material.opacity = 1 + Math.sin(time / 120);
-  objects.forEach(function (object) {
-    object.rotation.x = time / 1000;
-    object.rotation.z = time / 1000;
-    object.rotation.y = 0.5 + 0.5 * Math.abs(Math.sin(time / 1000));
-  });
+  // objects.forEach(function (object) {
+  //   object.rotation.x = time / 1000;
+  //   object.rotation.z = time / 1000;
+  //   object.rotation.y = 0.5 + 0.5 * Math.abs(Math.sin(time / 1000));
+  // });
 
   // Update the mixer on each frame
   // if (mixer) mixer.update(clock.getDelta());

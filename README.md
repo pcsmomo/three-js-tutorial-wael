@@ -285,4 +285,12 @@ Credits
 3. (recommend) using three.js official online editor, `https://threejs.org/editor/`
    - add `DirectionalLight`
 
+### 10. Cloning And Animating Models Loaded From glTF Files - Three.js Tutorial
+
+A tool that can clone a model and so on
+
+```js
+import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
+```
+
 </details>
