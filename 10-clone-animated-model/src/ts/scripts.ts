@@ -32,8 +32,8 @@ directionalLight.position.set(3, 3, 3);
 // GLTF
 const assetLoader = new GLTFLoader();
 
-let mixer: THREE.AnimationMixer;
 let stag: THREE.Group;
+let clips: THREE.AnimationClip[];
 // GLTFLoader.load(
 //   url: string,
 //   onLoad: (gltf: GLTF) => void,
@@ -44,13 +44,9 @@ assetLoader.load(
   function (gltf) {
     const model = gltf.scene;
     model.scale.set(0.3, 0.3, 0.3);
-    scene.add(model);
+    // scene.add(model);
     stag = model;
-    mixer = new THREE.AnimationMixer(model);
-    const clips = gltf.animations;
-    const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
-    const action = mixer.clipAction(clip);
-    action.play();
+    clips = gltf.animations;
   },
   undefined,
   function (error) {
@@ -106,6 +102,7 @@ window.addEventListener('mousemove', function (e) {
 });
 
 const objects: THREE.Object3D<THREE.Event>[] = [];
+const mixers: THREE.AnimationMixer[] = [];
 function doesObjectExists() {
   return objects.find(function (object) {
     return object.position.x === highlightMesh.position.x && object.position.z === highlightMesh.position.z;
@@ -124,6 +121,12 @@ window.addEventListener('mousedown', function () {
       scene.add(stagClone);
       objects.push(stagClone);
       highlightMesh.material.color.setHex(0xff0000);
+
+      const mixer = new THREE.AnimationMixer(stagClone);
+      const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
+      const action = mixer.clipAction(clip);
+      action.play();
+      mixers.push(mixer);
     }
   });
   // console.log(scene.children.length);
@@ -139,7 +142,9 @@ function animate(time: number) {
   // });
 
   // Update the mixer on each frame
-  if (mixer) mixer.update(clock.getDelta());
+  mixers.forEach(function (mixer) {
+    mixer.update(clock.getDelta());
+  });
 
   renderer.render(scene, camera);
 }
