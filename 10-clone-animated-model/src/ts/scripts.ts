@@ -47,6 +47,8 @@ assetLoader.load(
     // scene.add(model);
     stag = model;
     clips = gltf.animations;
+    console.log(clips);
+    // console.log(model);
   },
   undefined,
   function (error) {
@@ -109,6 +111,23 @@ function doesObjectExists() {
   });
 }
 
+const stagAnimations = [
+  'Attack_Headbutt',
+  'Attack_Kick',
+  'Eating',
+  'Gallop',
+  'Gallop_Jump',
+  'Idle',
+  'Idle_2',
+  'Idle_Headlow',
+  'Jump_toIdle',
+  'Walk'
+];
+
+function randomAnimation() {
+  return stagAnimations[Math.floor(Math.random() * stagAnimations.length)];
+}
+
 window.addEventListener('click', function () {
   const objectExists = doesObjectExists();
   if (objectExists) return;
@@ -123,7 +142,7 @@ window.addEventListener('click', function () {
       highlightMesh.material.color.setHex(0xff0000);
 
       const mixer = new THREE.AnimationMixer(stagClone);
-      const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
+      const clip = THREE.AnimationClip.findByName(clips, randomAnimation());
       const action = mixer.clipAction(clip);
       action.play();
       mixers.push(mixer);
