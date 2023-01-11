@@ -11,6 +11,11 @@ const hrdImages = [
   'MR_INT-006_LoftIndustrialWindow_Griffintown.hdr'
 ];
 
+// function pickRandomImage() {
+//   return hrdImages[Math.floor(Math.random() * hrdImages.length)];
+// }
+
+// const hrdTextureUrl = new URL(`../img/${pickRandomImage()}`, import.meta.url);
 const hrdTextureUrl = new URL(`../img/${hrdImages[2]}`, import.meta.url);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
