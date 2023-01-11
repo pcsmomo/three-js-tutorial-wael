@@ -32,6 +32,7 @@ directionalLight.position.set(3, 3, 3);
 const assetLoader = new GLTFLoader();
 
 // let mixer: THREE.AnimationMixer;
+let stag: THREE.Group;
 // GLTFLoader.load(
 //   url: string,
 //   onLoad: (gltf: GLTF) => void,
@@ -42,7 +43,8 @@ assetLoader.load(
   function (gltf) {
     const model = gltf.scene;
     model.scale.set(0.3, 0.3, 0.3);
-    scene.add(model);
+    // scene.add(model);
+    stag = model;
     // mixer = new THREE.AnimationMixer(model);
     // const clips = gltf.animations;
     // const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
@@ -102,16 +104,7 @@ window.addEventListener('mousemove', function (e) {
   });
 });
 
-// sphereMesh
-const sphereMesh = new THREE.Mesh(
-  new THREE.SphereGeometry(0.4, 4, 2),
-  new THREE.MeshBasicMaterial({
-    wireframe: true,
-    color: 0xffea00
-  })
-);
-
-const objects: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>[] = [];
+const objects: THREE.Group[] = [];
 function doesObjectExists() {
   return objects.find(function (object) {
     return object.position.x === highlightMesh.position.x && object.position.z === highlightMesh.position.z;
@@ -124,11 +117,11 @@ window.addEventListener('mousedown', function () {
 
   intersects.forEach(function (intersect) {
     if (intersect.object.name === 'ground') {
-      const sphereClone = sphereMesh.clone();
-      // sphereClone.position.copy(highlightMesh.position);
-      sphereClone.position.set(highlightMesh.position.x, highlightMesh.position.y + 0.4, highlightMesh.position.z);
-      scene.add(sphereClone);
-      objects.push(sphereClone);
+      const stagClone = stag.clone();
+      // stagClone.position.copy(highlightMesh.position);
+      stagClone.position.set(highlightMesh.position.x, highlightMesh.position.y + 0.4, highlightMesh.position.z);
+      scene.add(stagClone);
+      objects.push(stagClone);
       highlightMesh.material.color.setHex(0xff0000);
     }
   });
