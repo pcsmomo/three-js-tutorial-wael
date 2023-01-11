@@ -25,7 +25,7 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 
 const orbit = new OrbitControls(camera, renderer.domElement);
 
-camera.position.set(0, 0, 7);
+camera.position.set(0, 0, 12);
 orbit.update();
 
 // Gamma correction
@@ -38,8 +38,8 @@ renderer.toneMappingExposure = 1.8;
 const loader = new RGBELoader();
 loader.load(hrdTextureUrl.href, function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
-  // scene.background = texture;  // this can be omitted
-  scene.environment = texture;
+  scene.background = texture; // this can be omitted
+  scene.environment = texture; // this can be applied to the objects
 
   const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(1, 50, 50),
@@ -50,6 +50,19 @@ loader.load(hrdTextureUrl.href, function (texture) {
     })
   );
   scene.add(sphere);
+  sphere.position.x = -1.5;
+
+  const sphere2 = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 50, 50),
+    new THREE.MeshStandardMaterial({
+      roughness: 0, // 0.0 means a smooth mirror reflection, 1.0 means fully diffuse.
+      metalness: 0.5, // Non-metallic materials such as wood or stone use 0.0, metallic use 1.0,
+      color: 0x00ff00
+      // envMap: texture
+    })
+  );
+  scene.add(sphere2);
+  sphere2.position.x = 1.5;
 });
 
 function animate() {
