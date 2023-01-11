@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 
 const modelUrl = new URL('../assets/Stag.gltf', import.meta.url);
+const EXCLUDE_ANIMATIONS = ['Death', 'Idle_HitReact1', 'Idle_HitReact2'];
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -34,6 +35,7 @@ const assetLoader = new GLTFLoader();
 
 let stag: THREE.Group;
 let clips: THREE.AnimationClip[];
+const animations: string[] = [];
 // GLTFLoader.load(
 //   url: string,
 //   onLoad: (gltf: GLTF) => void,
@@ -48,6 +50,13 @@ assetLoader.load(
     stag = model;
     clips = gltf.animations;
     console.log(clips);
+
+    // add clip to animations[] except for EXCLUDE_ANIMATIONS
+    clips.forEach((clip) => {
+      if (EXCLUDE_ANIMATIONS.includes(clip.name)) return;
+      animations.push(clip.name);
+    });
+    console.log(animations);
     // console.log(model);
   },
   undefined,
@@ -111,21 +120,8 @@ function doesObjectExists() {
   });
 }
 
-const stagAnimations = [
-  'Attack_Headbutt',
-  'Attack_Kick',
-  'Eating',
-  'Gallop',
-  'Gallop_Jump',
-  'Idle',
-  'Idle_2',
-  'Idle_Headlow',
-  'Jump_toIdle',
-  'Walk'
-];
-
-function randomAnimation() {
-  return stagAnimations[Math.floor(Math.random() * stagAnimations.length)];
+function pickRandomClip(list: string[]) {
+  return list[Math.floor(Math.random() * list.length)];
 }
 
 window.addEventListener('click', function () {
@@ -142,7 +138,7 @@ window.addEventListener('click', function () {
       highlightMesh.material.color.setHex(0xff0000);
 
       const mixer = new THREE.AnimationMixer(stagClone);
-      const clip = THREE.AnimationClip.findByName(clips, randomAnimation());
+      const clip = THREE.AnimationClip.findByName(clips, pickRandomClip(animations));
       const action = mixer.clipAction(clip);
       action.play();
       mixers.push(mixer);
