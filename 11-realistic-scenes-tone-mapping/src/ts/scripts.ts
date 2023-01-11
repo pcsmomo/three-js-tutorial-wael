@@ -28,6 +28,9 @@ const orbit = new OrbitControls(camera, renderer.domElement);
 camera.position.set(0, 0, 7);
 orbit.update();
 
+// Gamma correction
+renderer.outputEncoding = THREE.sRGBEncoding;
+
 const loader = new RGBELoader();
 loader.load(hrdTextureUrl.href, function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
