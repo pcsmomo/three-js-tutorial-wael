@@ -31,6 +31,10 @@ orbit.update();
 // Gamma correction
 renderer.outputEncoding = THREE.sRGBEncoding;
 
+// Tone mapping
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.8;
+
 const loader = new RGBELoader();
 loader.load(hrdTextureUrl.href, function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
