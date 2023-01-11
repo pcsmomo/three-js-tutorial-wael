@@ -135,11 +135,12 @@ window.addEventListener('mousedown', function () {
 const clock = new THREE.Clock();
 function animate(time: number) {
   highlightMesh.material.opacity = 1 + Math.sin(time / 120);
-  // objects.forEach(function (object) {
-  //   object.rotation.x = time / 1000;
-  //   object.rotation.z = time / 1000;
-  //   object.rotation.y = 0.5 + 0.5 * Math.abs(Math.sin(time / 1000));
-  // });
+  objects.forEach(function (object) {
+    // object.rotation.x = time / 1000;
+    // object.rotation.z = time / 1000;
+    // object.rotation.y = 0.5 + 0.5 * Math.abs(Math.sin(time / 1000));
+    object.rotation.y = object.rotation.y + 0.01;
+  });
 
   const delta = clock.getDelta();
   mixers.forEach(function (mixer) {
