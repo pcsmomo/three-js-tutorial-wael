@@ -38,7 +38,18 @@ renderer.toneMappingExposure = 1.8;
 const loader = new RGBELoader();
 loader.load(hrdTextureUrl.href, function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
-  scene.background = texture;
+  // scene.background = texture;  // this can be omitted
+  scene.environment = texture;
+
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 50, 50),
+    new THREE.MeshStandardMaterial({
+      roughness: 0, // 0.0 means a smooth mirror reflection, 1.0 means fully diffuse.
+      metalness: 0.5, // Non-metallic materials such as wood or stone use 0.0, metallic use 1.0,
+      color: 0xffea00
+    })
+  );
+  scene.add(sphere);
 });
 
 function animate() {
