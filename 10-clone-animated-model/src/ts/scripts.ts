@@ -141,9 +141,10 @@ function animate(time: number) {
   //   object.rotation.y = 0.5 + 0.5 * Math.abs(Math.sin(time / 1000));
   // });
 
-  // Update the mixer on each frame
+  const delta = clock.getDelta();
   mixers.forEach(function (mixer) {
-    mixer.update(clock.getDelta());
+    // Update the mixer on each frame
+    mixer.update(delta);
   });
 
   renderer.render(scene, camera);
