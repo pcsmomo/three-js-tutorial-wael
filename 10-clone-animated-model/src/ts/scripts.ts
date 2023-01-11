@@ -109,7 +109,7 @@ function doesObjectExists() {
   });
 }
 
-window.addEventListener('mousedown', function () {
+window.addEventListener('click', function () {
   const objectExists = doesObjectExists();
   if (objectExists) return;
 
