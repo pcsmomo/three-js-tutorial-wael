@@ -38,7 +38,7 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 
 // Tone mapping
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.8;
+renderer.toneMappingExposure = 1.0;
 
 const loader = new RGBELoader();
 loader.load(hrdTextureUrl.href, function (texture) {
@@ -55,19 +55,21 @@ loader.load(hrdTextureUrl.href, function (texture) {
     })
   );
   scene.add(sphere);
-  sphere.position.x = -1.5;
+  sphere.position.x = -2;
 
   const sphere2 = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 50, 50),
+    // new THREE.SphereGeometry(1, 50, 50),
+    // new THREE.BoxGeometry(2, 2, 2),
+    new THREE.TorusGeometry(1, 0.5, 50, 50),
     new THREE.MeshStandardMaterial({
-      roughness: 0, // 0.0 means a smooth mirror reflection, 1.0 means fully diffuse.
-      metalness: 0.5, // Non-metallic materials such as wood or stone use 0.0, metallic use 1.0,
+      roughness: 0,
+      metalness: 1,
       color: 0x00ff00
       // envMap: texture
     })
   );
   scene.add(sphere2);
-  sphere2.position.x = 1.5;
+  sphere2.position.x = 2;
 });
 
 function animate() {
