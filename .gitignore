@@ -113,3 +113,6 @@ dist
 
 # gltf files
 *.gltf
+
+# hdr files
+*.hdr

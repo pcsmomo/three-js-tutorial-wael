@@ -293,4 +293,8 @@ A tool that can clone a model and so on
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 ```
 
+### 11. How To Create Realistic Scenes In Three.js - Tone Mapping, HDR, Gamma Correction, sRGB Color Space
+
+[Mr HDRI - free pack](https://www.maxroz.com/hdri)
+
 </details>
