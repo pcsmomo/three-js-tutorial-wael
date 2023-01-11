@@ -32,7 +32,7 @@ directionalLight.position.set(3, 3, 3);
 // GLTF
 const assetLoader = new GLTFLoader();
 
-// let mixer: THREE.AnimationMixer;
+let mixer: THREE.AnimationMixer;
 let stag: THREE.Group;
 // GLTFLoader.load(
 //   url: string,
@@ -44,13 +44,13 @@ assetLoader.load(
   function (gltf) {
     const model = gltf.scene;
     model.scale.set(0.3, 0.3, 0.3);
-    // scene.add(model);
+    scene.add(model);
     stag = model;
-    // mixer = new THREE.AnimationMixer(model);
-    // const clips = gltf.animations;
-    // const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
-    // const action = mixer.clipAction(clip);
-    // action.play();
+    mixer = new THREE.AnimationMixer(model);
+    const clips = gltf.animations;
+    const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
+    const action = mixer.clipAction(clip);
+    action.play();
   },
   undefined,
   function (error) {
@@ -139,7 +139,7 @@ function animate(time: number) {
   // });
 
   // Update the mixer on each frame
-  // if (mixer) mixer.update(clock.getDelta());
+  if (mixer) mixer.update(clock.getDelta());
 
   renderer.render(scene, camera);
 }
