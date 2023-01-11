@@ -31,7 +31,7 @@ directionalLight.position.set(3, 3, 3);
 // GLTF
 const assetLoader = new GLTFLoader();
 
-let mixer: THREE.AnimationMixer;
+// let mixer: THREE.AnimationMixer;
 // GLTFLoader.load(
 //   url: string,
 //   onLoad: (gltf: GLTF) => void,
@@ -41,12 +41,13 @@ assetLoader.load(
   modelUrl.href,
   function (gltf) {
     const model = gltf.scene;
+    model.scale.set(0.3, 0.3, 0.3);
     scene.add(model);
-    mixer = new THREE.AnimationMixer(model);
-    const clips = gltf.animations;
-    const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
-    const action = mixer.clipAction(clip);
-    action.play();
+    // mixer = new THREE.AnimationMixer(model);
+    // const clips = gltf.animations;
+    // const clip = THREE.AnimationClip.findByName(clips, 'Idle_2');
+    // const action = mixer.clipAction(clip);
+    // action.play();
   },
   undefined,
   function (error) {
@@ -124,6 +125,7 @@ window.addEventListener('mousedown', function () {
   intersects.forEach(function (intersect) {
     if (intersect.object.name === 'ground') {
       const sphereClone = sphereMesh.clone();
+      // sphereClone.position.copy(highlightMesh.position);
       sphereClone.position.set(highlightMesh.position.x, highlightMesh.position.y + 0.4, highlightMesh.position.z);
       scene.add(sphereClone);
       objects.push(sphereClone);
@@ -143,7 +145,7 @@ function animate(time: number) {
   });
 
   // Update the mixer on each frame
-  if (mixer) mixer.update(clock.getDelta());
+  // if (mixer) mixer.update(clock.getDelta());
 
   renderer.render(scene, camera);
 }
