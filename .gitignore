@@ -112,4 +112,4 @@ dist
 04-*/**/img/*.jpg
 
 # gltf files
-Donkey.gltf
+*.gltf
