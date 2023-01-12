@@ -297,4 +297,15 @@ import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 
 [Mr HDRI - free pack](https://www.maxroz.com/hdri)
 
+### 12. How To Import A Model From Sketchfab.com To Your Three.js Web App
+
+[Popular 3d model website](https://sketchfab.com/)
+
+#### boilerplate for parcel in typescript
+
+```sh
+npm install -D parcel-reporter-static-files-copy
+npm install -D @parcel/config-default
+```
+
 </details>
