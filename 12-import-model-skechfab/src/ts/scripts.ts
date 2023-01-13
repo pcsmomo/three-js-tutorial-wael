@@ -50,17 +50,18 @@ rgbeLoader.load('./assets/MR_INT-005_WhiteNeons_NAD.hdr', function (texture) {
   scene.environment = texture;
 
   // load model
-  gltfLoader.load('./assets/scene.gltf', function (gltf) {
+  gltfLoader.load('./assets/porsche/scene.gltf', function (gltf) {
     const model = gltf.scene;
     scene.add(model);
     car = model;
   });
 });
 
+let isAnimating = true;
 function animate(time: number) {
-  if (car) {
-    car.rotation.y = -time / 5000;
-    // car.rotation.y -= 0.003;
+  if (car && isAnimating) {
+    // car.rotation.y = -time / 5000;
+    car.rotation.y -= 0.003;
   }
   renderer.render(scene, camera);
 }
@@ -71,4 +72,11 @@ window.addEventListener('resize', function () {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+window.addEventListener('click', function (e) {
+  // alt or cmd key was pressed
+  if (e.altKey || e.metaKey) {
+    isAnimating = !isAnimating;
+  }
 });

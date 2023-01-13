@@ -308,4 +308,7 @@ npm install -D parcel-reporter-static-files-copy
 npm install -D @parcel/config-default
 ```
 
+- [How to add a unicode character to html](https://www.designcise.com/web/tutorial/how-to-add-a-unicode-character-to-html)
+- `<span class="guide">Press Alt(&#x2387;) or Cmd(&#x2318;) key + Click to Stop/Resume</span>`
+
 </details>
