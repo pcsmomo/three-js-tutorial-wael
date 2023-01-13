@@ -113,6 +113,8 @@ dist
 
 # gltf files
 *.gltf
+*.bin
+12-*/**/*.png
 
 # hdr files
 *.hdr
