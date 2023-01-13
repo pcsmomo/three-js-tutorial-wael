@@ -24,28 +24,43 @@ orbit.update();
 const grid = new THREE.GridHelper(30, 30);
 scene.add(grid);
 
-const ambientLight = new THREE.AmbientLight(0xededed, 0.8);
-scene.add(ambientLight);
+// remove lights as it's a HDR background reflecting light
+// const ambientLight = new THREE.AmbientLight(0xededed, 0.8);
+// scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-scene.add(directionalLight);
-directionalLight.position.set(10, 11, 7);
+// const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+// scene.add(directionalLight);
+// directionalLight.position.set(10, 11, 7);
 
 // loaders
 const gltfLoader = new GLTFLoader();
 
 const rgbeLoader = new RGBELoader();
 
+// apply sRGB encoding (HDR background)
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 4;
+
 let car: THREE.Group;
-gltfLoader.load('./assets/scene.gltf', function (gltf) {
-  const model = gltf.scene;
-  scene.add(model);
-  car = model;
+
+// load background
+rgbeLoader.load('./assets/MR_INT-005_WhiteNeons_NAD.hdr', function (texture) {
+  texture.mapping = THREE.EquirectangularReflectionMapping;
+  scene.environment = texture;
+
+  // load model
+  gltfLoader.load('./assets/scene.gltf', function (gltf) {
+    const model = gltf.scene;
+    scene.add(model);
+    car = model;
+  });
 });
 
 function animate(time: number) {
   if (car) {
-    car.rotation.y = -time / 3000;
+    car.rotation.y = -time / 5000;
+    // car.rotation.y -= 0.003;
   }
   renderer.render(scene, camera);
 }
