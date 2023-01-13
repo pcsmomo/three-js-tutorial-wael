@@ -36,7 +36,17 @@ const gltfLoader = new GLTFLoader();
 
 const rgbeLoader = new RGBELoader();
 
-function animate() {
+let car: THREE.Group;
+gltfLoader.load('./assets/scene.gltf', function (gltf) {
+  const model = gltf.scene;
+  scene.add(model);
+  car = model;
+});
+
+function animate(time: number) {
+  if (car) {
+    car.rotation.y = -time / 3000;
+  }
   renderer.render(scene, camera);
 }
 
