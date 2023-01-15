@@ -26,9 +26,26 @@ orbit.update();
 camera.position.set(5, 8, 30);
 
 // loaders
-const gltfLoader = new GLTFLoader();
+const loadingManager = new THREE.LoadingManager();
 
-const rgbeLoader = new RGBELoader();
+loadingManager.onStart = function (url, itemsLoaded, itemsTotal) {
+  console.info('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+};
+
+loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+  console.info('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+};
+
+loadingManager.onLoad = function () {
+  console.info('Loading complete!');
+};
+
+loadingManager.onError = function (url) {
+  console.info('There was an error loading ' + url);
+};
+
+const gltfLoader = new GLTFLoader(loadingManager);
+const rgbeLoader = new RGBELoader(loadingManager);
 
 // apply sRGB encoding (HDR background)
 renderer.outputEncoding = THREE.sRGBEncoding;
