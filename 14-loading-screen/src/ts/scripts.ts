@@ -32,12 +32,17 @@ loadingManager.onStart = function (url, itemsLoaded, itemsTotal) {
   console.info('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 };
 
+const progressBar = document.getElementById('progress-bar') as HTMLProgressElement;
 loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
-  console.info('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+  // console.info('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+  const progress = (itemsLoaded / itemsTotal) * 100;
+  progressBar.value = progress;
 };
 
+const progressBarContainer = document.querySelector('.progress-bar-container') as HTMLElement;
 loadingManager.onLoad = function () {
   console.info('Loading complete!');
+  progressBarContainer.style.display = 'none';
 };
 
 loadingManager.onError = function (url) {
