@@ -37,7 +37,15 @@ const box = new THREE.Mesh(boxGeometry, boxMaterial);
 scene.add(box);
 box.position.y = 0.5;
 
+let z: number;
+const zFinal = 14;
+window.addEventListener('mousedown', function () {
+  z = camera.position.z;
+});
+
 function animate() {
+  z += 0.1;
+  if (z < zFinal) camera.position.z = z;
   renderer.render(scene, camera);
 }
 
