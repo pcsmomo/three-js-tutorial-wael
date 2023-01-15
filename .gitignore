@@ -110,11 +110,13 @@ dist
 02-*/**/img/*.jpg
 02-*/**/img/*.png
 04-*/**/img/*.jpg
+12-*/**/*.png
+14-*/**/*.png
+14-*/**/*.jpeg
 
 # gltf files
 *.gltf
 *.bin
-12-*/**/*.png
 
 # hdr files
 *.hdr

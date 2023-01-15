@@ -1,0 +1,25 @@
+{
+  "name": "three-js-tutorial-wael",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "parcel ./index.html",
+    "build": "parcel build ./index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/config-default": "^2.8.2",
+    "@types/three": "^0.147.0",
+    "parcel": "^2.8.2",
+    "parcel-reporter-static-files-copy": "^1.5.0"
+  },
+  "dependencies": {
+    "three": "^0.148.0"
+  },
+  "staticFiles": {
+    "staticOutPath": "assets/"
+  }
+}
