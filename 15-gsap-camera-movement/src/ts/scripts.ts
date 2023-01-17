@@ -19,8 +19,8 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 const orbit = new OrbitControls(camera, renderer.domElement);
 orbit.update();
 
-camera.position.set(0, 2, 5);
-camera.lookAt(0, 0, 0);
+camera.position.set(10, 0, 20);
+// camera.lookAt(0, 0, 0);
 
 // add light
 const ambientLight = new THREE.AmbientLight(0xededed, 0.8);
@@ -71,12 +71,120 @@ assetLoader.load(
     action3.play();
     action2.startAt(0.35);
     action3.timeScale = 0.5;
+
+    window.addEventListener('mousedown', cameraAnimation);
   },
   undefined,
   function (error) {
     console.error(error);
   }
 );
+
+const tl = gsap.timeline();
+const duration = 8;
+// const ease = 'power2.inOut';
+const ease = 'none';
+let animationIsFinished = false;
+
+function cameraAnimation() {
+  if (!animationIsFinished) {
+    animationIsFinished = true;
+
+    tl.to(camera.position, {
+      x: 0,
+      duration,
+      ease
+      // onUpdate: function () {
+      //   camera.lookAt(0, 0, 0);
+      // }
+    })
+      .to(
+        camera.position,
+        {
+          y: 40,
+          z: 30,
+          duration,
+          ease,
+          onUpdate: function () {
+            camera.lookAt(0, 0, 0);
+          }
+        },
+        8
+      )
+      .to(
+        camera.position,
+        {
+          x: -10,
+          y: 15,
+          z: 10,
+          duration,
+          ease,
+          onUpdate: function () {
+            camera.lookAt(0, 0, 0);
+          }
+        },
+        8
+      )
+      .to(
+        camera.position,
+        {
+          x: -30,
+          y: 30,
+          z: 20,
+          duration,
+          ease,
+          onUpdate: function () {
+            camera.lookAt(0, 0, 0);
+          }
+        },
+        8
+      )
+      .to(
+        camera.position,
+        {
+          x: -40,
+          y: 30,
+          z: -20,
+          duration,
+          ease,
+          onUpdate: function () {
+            camera.lookAt(0, 0, 0);
+          }
+        },
+        14
+      )
+      .to(camera.position, {
+        x: 5,
+        y: 5,
+        z: -10,
+        duration,
+        ease,
+        onUpdate: function () {
+          camera.lookAt(0, 0, 0);
+        }
+      })
+      .to(
+        camera.position,
+        {
+          x: 5,
+          y: 20,
+          z: 30,
+          duration,
+          ease,
+          onUpdate: function () {
+            camera.lookAt(0, 0, 0);
+          }
+        },
+        '>-0.2'
+      )
+      .to(camera.position, {
+        x: -30,
+        duration: 12,
+        ease,
+        delay: 2
+      });
+  }
+}
 
 const clock = new THREE.Clock();
 function animate() {
