@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 import gsap from 'gsap';
 
 const renderer = new THREE.WebGLRenderer();
@@ -28,52 +30,64 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 scene.add(directionalLight);
 directionalLight.position.set(0, 20, -20);
 
-const grid = new THREE.GridHelper(30, 30);
-scene.add(grid);
+// load models
+const assetLoader = new GLTFLoader();
 
-// add Box
-const boxGeometry = new THREE.BoxGeometry();
-const boxMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-const box = new THREE.Mesh(boxGeometry, boxMaterial);
-scene.add(box);
-box.position.y = 0.5;
+let mixer: THREE.AnimationMixer;
+let mixer2: THREE.AnimationMixer;
+let mixer3: THREE.AnimationMixer;
 
-// let z: number;
-// const zFinal = 14;
-const tl = gsap.timeline();
-window.addEventListener('mousedown', function () {
-  // z = camera.position.z;
-  tl.to(camera.position, {
-    z: 14,
-    duration: 1.5,
-    onUpdate: function () {
-      camera.lookAt(0, 0, 0);
-    }
-  })
-    .to(camera.position, {
-      y: 10,
-      duration: 1.5,
-      onUpdate: function () {
-        camera.lookAt(0, 0, 0);
-      }
-    })
-    .to(camera.position, {
-      x: 10,
-      y: 5,
-      z: 3,
-      duration: 1.5,
-      onUpdate: function () {
-        camera.lookAt(0, 0, 0);
-      }
-    });
-});
+assetLoader.load(
+  '../assets/phoenix/scene.gltf',
+  function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(0.01, 0.01, 0.01);
+    const model2 = SkeletonUtils.clone(model);
+    const model3 = SkeletonUtils.clone(model);
 
+    scene.add(model);
+    scene.add(model2);
+    scene.add(model3);
+
+    model2.position.set(7, -4, 6);
+    model3.position.set(-7, 4, -2);
+
+    mixer = new THREE.AnimationMixer(model);
+    mixer2 = new THREE.AnimationMixer(model2);
+    mixer3 = new THREE.AnimationMixer(model3);
+
+    const clips = gltf.animations;
+    const clip = THREE.AnimationClip.findByName(clips, 'Take 001');
+
+    const action = mixer.clipAction(clip);
+    const action2 = mixer2.clipAction(clip);
+    const action3 = mixer3.clipAction(clip);
+
+    action.play();
+    action.timeScale = 0.5;
+    action2.play();
+    action2.startAt(0.2);
+    action2.timeScale = 0.5;
+    action3.play();
+    action2.startAt(0.35);
+    action3.timeScale = 0.5;
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
+const clock = new THREE.Clock();
 function animate() {
-  // z += 0.1;
-  // if (z < zFinal) {
-  //   camera.position.z = z;
-  //   camera.lookAt(0, 0, 0);
-  // }
+  // model animation
+  const delta = clock.getDelta();
+  if (mixer && mixer2 && mixer3) {
+    mixer.update(delta);
+    mixer2.update(delta);
+    mixer3.update(delta);
+  }
+
   renderer.render(scene, camera);
 }
 
