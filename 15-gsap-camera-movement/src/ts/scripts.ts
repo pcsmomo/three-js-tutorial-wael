@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import gsap from 'gsap';
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -37,15 +38,33 @@ const box = new THREE.Mesh(boxGeometry, boxMaterial);
 scene.add(box);
 box.position.y = 0.5;
 
-let z: number;
-const zFinal = 14;
+// let z: number;
+// const zFinal = 14;
 window.addEventListener('mousedown', function () {
-  z = camera.position.z;
+  // z = camera.position.z;
+  gsap.to(camera.position, {
+    z: 14,
+    duration: 1.5,
+    onUpdate: function () {
+      camera.lookAt(0, 0, 0);
+    }
+  });
+
+  gsap.to(camera.position, {
+    y: 10,
+    duration: 1.5,
+    onUpdate: function () {
+      camera.lookAt(0, 0, 0);
+    }
+  });
 });
 
 function animate() {
-  z += 0.1;
-  if (z < zFinal) camera.position.z = z;
+  // z += 0.1;
+  // if (z < zFinal) {
+  //   camera.position.z = z;
+  //   camera.lookAt(0, 0, 0);
+  // }
   renderer.render(scene, camera);
 }
 
