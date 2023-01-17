@@ -40,23 +40,32 @@ box.position.y = 0.5;
 
 // let z: number;
 // const zFinal = 14;
+const tl = gsap.timeline();
 window.addEventListener('mousedown', function () {
   // z = camera.position.z;
-  gsap.to(camera.position, {
+  tl.to(camera.position, {
     z: 14,
     duration: 1.5,
     onUpdate: function () {
       camera.lookAt(0, 0, 0);
     }
-  });
-
-  gsap.to(camera.position, {
-    y: 10,
-    duration: 1.5,
-    onUpdate: function () {
-      camera.lookAt(0, 0, 0);
-    }
-  });
+  })
+    .to(camera.position, {
+      y: 10,
+      duration: 1.5,
+      onUpdate: function () {
+        camera.lookAt(0, 0, 0);
+      }
+    })
+    .to(camera.position, {
+      x: 10,
+      y: 5,
+      z: 3,
+      duration: 1.5,
+      onUpdate: function () {
+        camera.lookAt(0, 0, 0);
+      }
+    });
 });
 
 function animate() {
