@@ -114,6 +114,7 @@ dist
 14-*/**/*.png
 14-*/**/*.jpeg
 15-*/**/*.png
+16-*/**/*.jpeg
 
 # gltf files
 *.gltf
