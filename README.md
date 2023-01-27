@@ -49,6 +49,7 @@ MeshStandardMaterial needs
 
 ```sh
 npm install dat.gui
+npm install -D @types/dat.gui
 ```
 
 ## 2-1. Solar system in TypeScript
