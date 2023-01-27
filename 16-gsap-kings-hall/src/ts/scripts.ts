@@ -42,6 +42,9 @@ loadingManager.onLoad = function () {
 // load models
 const gltfLoader = new GLTFLoader(loadingManager);
 
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
 // load model
 gltfLoader.load('./assets/kings-hall/scene.gltf', function (gltf) {
   const model = gltf.scene;
