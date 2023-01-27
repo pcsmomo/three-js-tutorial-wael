@@ -16,6 +16,7 @@ camera.lookAt(scene.position);
 
 // Vehicle Mesh
 const vehicleGeo = new THREE.ConeGeometry(0.1, 0.5, 8);
+vehicleGeo.rotateX(Math.PI * 0.5);
 const vehicleMat = new THREE.MeshNormalMaterial();
 const vehicleMesh = new THREE.Mesh(vehicleGeo, vehicleMat);
 vehicleMesh.matrixAutoUpdate = false;
@@ -50,7 +51,6 @@ const entityManager = new YUKA.EntityManager();
 entityManager.add(vehicle);
 
 const time = new YUKA.Time();
-
 function animate() {
   const delta = time.update().getDelta();
   entityManager.update(delta);
