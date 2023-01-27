@@ -45,16 +45,27 @@ const gltfLoader = new GLTFLoader(loadingManager);
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
+let position = 0;
+
 // load model
 gltfLoader.load('./assets/kings-hall/scene.gltf', function (gltf) {
   const model = gltf.scene;
   scene.add(model);
 
   window.addEventListener('mouseup', function () {
-    console.log(camera.position);
-
-    moveCamera(-1.8, 1.6, 5);
-    rotateCamera(0, 0.1, 0);
+    // console.log(camera.position);
+    switch (position) {
+      case 0:
+        moveCamera(-1.8, 1.6, 5);
+        rotateCamera(0, 0.1, 0);
+        position = 1;
+        break;
+      case 1:
+        moveCamera(2.8, 0, 3.6);
+        rotateCamera(0, -2, 0);
+        position = 2;
+        break;
+    }
   });
 
   function moveCamera(x: number, y: number, z: number) {
