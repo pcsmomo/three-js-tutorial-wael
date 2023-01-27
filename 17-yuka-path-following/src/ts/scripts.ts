@@ -48,10 +48,14 @@ path.add(new YUKA.Vector3(6, 0, 0));
 path.add(new YUKA.Vector3(4, 0, 4));
 path.add(new YUKA.Vector3(0, 0, 6));
 
+path.loop = true;
+
 vehicle.position.copy(path.current());
 
 const followPathBehavior = new YUKA.FollowPathBehavior(path, 0.5);
 vehicle.steering.add(followPathBehavior);
+
+vehicle.maxSpeed = 3;
 
 // Entity Manager
 const entityManager = new YUKA.EntityManager();
