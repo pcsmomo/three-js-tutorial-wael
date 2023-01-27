@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as YUKA from 'yuka';
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -12,6 +13,21 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 
 camera.position.set(0, 0, 5);
 camera.lookAt(scene.position);
+
+// Vehicle Mesh
+const vehicleGeo = new THREE.ConeGeometry(0.1, 0.5, 8);
+const vehicleMat = new THREE.MeshNormalMaterial();
+const vehicleMesh = new THREE.Mesh(vehicleGeo, vehicleMat);
+vehicleMesh.matrixAutoUpdate = false;
+scene.add(vehicleMesh);
+
+// Vehicle Yuka
+const vehicle = new YUKA.Vehicle();
+vehicle.setRenderComponent(vehicleMesh, sync);
+
+function sync(entity: YUKA.GameEntity, renderComponent: any) {
+  renderComponent.matrix.copy(entity.worldMatrix);
+}
 
 function animate() {
   renderer.render(scene, camera);

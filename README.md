@@ -318,4 +318,10 @@ npm install -D @parcel/config-default
 npm install gsap
 ```
 
+### 17. Path Following Steering Behavior With Yuka - Three.js & AI Tutorial
+
+```sh
+npm install yuka
+```
+
 </details>
