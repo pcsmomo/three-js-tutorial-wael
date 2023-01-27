@@ -11,7 +11,7 @@ const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-camera.position.set(0, 0, 5);
+camera.position.set(0, 20, 0);
 camera.lookAt(scene.position);
 
 // Vehicle Mesh
@@ -29,7 +29,31 @@ function sync(entity: YUKA.GameEntity, renderComponent: any) {
   renderComponent.matrix.copy(entity.worldMatrix);
 }
 
+// Path
+const path = new YUKA.Path();
+path.add(new YUKA.Vector3(-4, 0, 4));
+path.add(new YUKA.Vector3(-6, 0, 0));
+path.add(new YUKA.Vector3(-4, 0, -4));
+path.add(new YUKA.Vector3(0, 0, 0));
+path.add(new YUKA.Vector3(4, 0, -4));
+path.add(new YUKA.Vector3(6, 0, 0));
+path.add(new YUKA.Vector3(4, 0, 4));
+path.add(new YUKA.Vector3(0, 0, 6));
+
+vehicle.position.copy(path.current());
+
+const followPathBehavior = new YUKA.FollowPathBehavior(path, 0.5);
+vehicle.steering.add(followPathBehavior);
+
+// Entity Manager
+const entityManager = new YUKA.EntityManager();
+entityManager.add(vehicle);
+
+const time = new YUKA.Time();
+
 function animate() {
+  const delta = time.update().getDelta();
+  entityManager.update(delta);
   renderer.render(scene, camera);
 }
 
