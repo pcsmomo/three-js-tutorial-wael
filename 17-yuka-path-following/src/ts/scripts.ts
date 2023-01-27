@@ -55,7 +55,12 @@ vehicle.position.copy(path.current());
 const followPathBehavior = new YUKA.FollowPathBehavior(path, 0.5);
 vehicle.steering.add(followPathBehavior);
 
-vehicle.maxSpeed = 3;
+// follow the path closely
+const onPathBehavior = new YUKA.OnPathBehavior(path);
+onPathBehavior.radius = 0.8;
+vehicle.steering.add(onPathBehavior);
+
+// vehicle.maxSpeed = 3;
 
 // Entity Manager
 const entityManager = new YUKA.EntityManager();
