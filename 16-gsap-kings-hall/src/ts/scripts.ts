@@ -15,9 +15,9 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 
 renderer.setClearColor(0xa3a3a3);
 
-const controls = new FirstPersonControls(camera, renderer.domElement);
-controls.movementSpeed = 8;
-controls.lookSpeed = 0.08;
+// const controls = new FirstPersonControls(camera, renderer.domElement);
+// controls.movementSpeed = 8;
+// controls.lookSpeed = 0.08;
 
 camera.position.set(-1.7, 0, 8.7);
 camera.lookAt(1.7, 0, 8.7);
@@ -49,13 +49,26 @@ gltfLoader.load('./assets/kings-hall/scene.gltf', function (gltf) {
 
   window.addEventListener('mouseup', function () {
     console.log(camera.position);
+    gsap.to(camera.position, {
+      x: -1.8,
+      y: 1.6,
+      z: 5,
+      duration: 3
+    });
+
+    gsap.to(camera.rotation, {
+      x: 0,
+      y: 0.1,
+      z: 0,
+      duration: 3.2
+    });
   });
 });
 
-const clock = new THREE.Clock();
+// const clock = new THREE.Clock();
 function animate() {
   renderer.render(scene, camera);
-  controls.update(clock.getDelta());
+  // controls.update(clock.getDelta());
 }
 
 renderer.setAnimationLoop(animate);
