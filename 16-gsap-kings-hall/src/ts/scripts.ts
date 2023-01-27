@@ -31,7 +31,7 @@ const loadingManager = new THREE.LoadingManager();
 
 const progressBar = document.getElementById('progress-bar') as HTMLProgressElement;
 
-loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+loadingManager.onProgress = function (_url, itemsLoaded, itemsTotal) {
   // console.info('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
   const progress = (itemsLoaded / itemsTotal) * 100;
   progressBar.value = progress;
