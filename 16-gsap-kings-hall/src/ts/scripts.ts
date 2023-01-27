@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
+// import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import gsap from 'gsap';
 
@@ -14,6 +15,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 renderer.setClearColor(0xa3a3a3);
+
+// const orbit = new OrbitControls(camera, renderer.domElement);
+// orbit.update();
 
 // const controls = new FirstPersonControls(camera, renderer.domElement);
 // controls.movementSpeed = 8;
@@ -65,7 +69,33 @@ gltfLoader.load('./assets/kings-hall/scene.gltf', function (gltf) {
         rotateCamera(0, -2, 0);
         position = 2;
         break;
+      case 2:
+        moveCamera(2.5, -0.9, 12.2);
+        rotateCamera(0.9, 0.6, -0.6);
+        position = 3;
+        break;
+      case 3:
+        moveCamera(-2.7, 0.6, 3.7);
+        rotateCamera(0.6, 1.9, -0.6);
+        position = 4;
+        break;
+      case 4:
+        moveCamera(-1.7, 0, 8.7);
+        rotateCamera(0, 4.7, 0);
+        position = 5;
+        break;
+      case 5:
+        moveCamera(0.5, 0.8, 10);
+        rotateCamera(0.3, 1.65, -0.3);
+        position = 0;
+        break;
     }
+  });
+
+  window.addEventListener('keypress', function () {
+    const { x: pX, y: pY, z: pZ } = camera.position;
+    const { x: rX, y: rY, z: rZ } = camera.rotation;
+    console.info(`pos: (${pX}, ${pY}, ${pZ}), rotate: (${rX}, ${rY}, ${rZ})`);
   });
 
   function moveCamera(x: number, y: number, z: number) {
