@@ -52,20 +52,28 @@ gltfLoader.load('./assets/kings-hall/scene.gltf', function (gltf) {
 
   window.addEventListener('mouseup', function () {
     console.log(camera.position);
+
+    moveCamera(-1.8, 1.6, 5);
+    rotateCamera(0, 0.1, 0);
+  });
+
+  function moveCamera(x: number, y: number, z: number) {
     gsap.to(camera.position, {
-      x: -1.8,
-      y: 1.6,
-      z: 5,
+      x,
+      y,
+      z,
       duration: 3
     });
+  }
 
+  function rotateCamera(x: number, y: number, z: number) {
     gsap.to(camera.rotation, {
-      x: 0,
-      y: 0.1,
-      z: 0,
+      x,
+      y,
+      z,
       duration: 3.2
     });
-  });
+  }
 });
 
 // const clock = new THREE.Clock();
