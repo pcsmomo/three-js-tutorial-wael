@@ -322,6 +322,7 @@ npm install gsap
 
 ```sh
 npm install yuka
+npm install -D @types/yuka
 ```
 
 </details>
