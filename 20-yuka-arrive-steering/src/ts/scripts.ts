@@ -47,20 +47,13 @@ entityManager.add(vehicle);
 entityManager.add(target);
 
 // seek behavior
-const seekBehavior = new YUKA.SeekBehavior(target.position);
+const seekBehavior = new YUKA.ArriveBehavior(target.position, 3, 1);
 vehicle.steering.add(seekBehavior);
 
 // initial vehicle position
-vehicle.position.set(-2, 0, -2);
+vehicle.position.set(-3, 0, -3);
 
-// random target position
-setInterval(function () {
-  const x = Math.random() * 3;
-  const y = Math.random() * 3;
-  const z = Math.random() * 3;
-
-  target.position.set(x, y, z);
-}, 2000);
+vehicle.maxSpeed = 3;
 
 const time = new YUKA.Time();
 function animate() {
